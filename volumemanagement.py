@@ -15,12 +15,14 @@ def on_press(key):
     if session.Process and session.Process.name() == application:
         previousVolume = volume.GetMasterVolume()
         if (key == (Key.page_up)):
+            print("volume up")
             while previousVolume < highVolume:
                 previousVolume = previousVolume + increment
                 volume.SetMasterVolume(previousVolume, None)
                 time.sleep(0.1)
             #time.sleep(2)
         if (key == (Key.page_down)):
+            print("Volume down")
             while previousVolume > lowVolume:
                 previousVolume = previousVolume - increment
                 volume.SetMasterVolume(previousVolume, None)
