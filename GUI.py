@@ -1,6 +1,6 @@
 import customtkinter as ct
 import volumemanagement as vm
-from GUI_Elements import startTimer
+import GUI_Elements.Timer as Timer
 import tkinter
 
 
@@ -17,7 +17,7 @@ def runGUI():
   controller.geometry("430x250")
 
   startButton = ct.CTkButton(controller, text="Start Timer",
-  command=lambda: startTimer(timer, timerWindow), 
+  command=lambda: Timer.startTimer(timer, timerWindow), 
   width=10, height= 3, font=("Serif", 20))
 
   volumeUpButton = ct.CTkButton(controller, text="Volume Up",
