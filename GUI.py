@@ -1,5 +1,5 @@
 import customtkinter as ct
-import volumemanagement as vm
+import VolumeControl as vm
 import GUI_Elements.Timer as Timer
 import tkinter
 
