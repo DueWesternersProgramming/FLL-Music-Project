@@ -1,34 +1,31 @@
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
-from pynput.keyboard import Key, Listener
 import time
 
 increment = 0.02
-lowVolume = 0.2
-highVolume = 0.5
+lowVolume = 0.5
+highVolume = 1.0
 application = "Spotify.exe"
 
 sessions = AudioUtilities.GetAllSessions()
-for session in sessions:
-    volume = session._ctl.QueryInterface(ISimpleAudioVolume)
+correctSession = sessions[0]
 
-def on_press(key):
+for session in sessions:
     if session.Process and session.Process.name() == application:
+        volume = session._ctl.QueryInterface(ISimpleAudioVolume)
+        correctSession = session
+        break
+
+def volumeControl(control):
         previousVolume = volume.GetMasterVolume()
-        if (key == (Key.page_up)):
+        if (control == True):
             print("volume up")
             while previousVolume < highVolume:
                 previousVolume = previousVolume + increment
                 volume.SetMasterVolume(previousVolume, None)
                 time.sleep(0.1)
-            #time.sleep(2)
-        if (key == (Key.page_down)):
+        if (control == False):
             print("Volume down")
             while previousVolume > lowVolume:
                 previousVolume = previousVolume - increment
                 volume.SetMasterVolume(previousVolume, None)
                 time.sleep(0.1)
-            #time.sleep(2)
-
-with Listener(
-        on_press=on_press) as listener:
-    listener.join()
