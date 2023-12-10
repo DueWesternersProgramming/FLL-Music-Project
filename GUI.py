@@ -1,20 +1,19 @@
 import customtkinter as ct
 import VolumeControl as vm
 import GUI_Elements.Timer as Timer
+import GUI_Elements.sheet as sheet
 import tkinter
-
-
-#customtkinter.set_appearance_mode("dark")
-#print(base.test())
 
 def runGUI():
   timerWindow = ct.CTk()
   timerWindow.geometry("400x350")
   timerWindow.title("Timer Window")
+  ct.set_appearance_mode("dark")
 
   controller = tkinter.Tk()
   controller.title("Controller Window")
   controller.geometry("430x250")
+
 
   startButton = ct.CTkButton(controller, text="Start Timer",
   command=lambda: Timer.startTimer(timer, timerWindow), 
@@ -34,7 +33,10 @@ def runGUI():
 
   timer = ct.CTkLabel(timerWindow,text=("2:30"))
   timer.configure(font=("Serif", 180))
-  timer.pack(side="top", expand=1)
+  timer.place(relx=.5, rely=.5,anchor="s")
+
+  sheet.initSheet(timerWindow)
+  print(sheet.getData())
+
 
   timerWindow.mainloop()
-#print(timer.winfo_width())
