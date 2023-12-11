@@ -1,31 +1,68 @@
 import tkinter
 import customtkinter
 
-global lst
-lst = [('Team','Practice match','Match 1','Match 2', 'Match 3'),
+
+global startingDataLst
+startingDataLst = [('Team','Practice match','Match 1','Match 2', 'Match 3'),
         ('Team 1','','','','',''),
         ('Team 2','','','','',''),
         ('Team 3','','','','',''),
         ('Team 4','','','','','')]
-global numrows, numcols
-numrows = len(lst)
-numcols = len(lst[0])
+global numrows, numcols, numCells
+numrows = len(startingDataLst)
+numcols = len(startingDataLst[0])
+numCells = numcols*numrows
 
-def initSheet(window):
+def initDisplaySheet(window):
+    global acsessLst
+    acsessLst = []
+    for row in range(numrows):
 
+        for col in range(numcols):
+
+            global entry
+            entry = tkinter.Entry(window,width=25, fg='blue', font=('Arial',40, 'bold'), border=5)
+            entry.grid(row=row+1, column=col+1)
+            #entry.grid_location(50,50)
+            entry.insert(0,startingDataLst[row][col])
+            acsessLst.append(entry)
+
+def initEntrySheet(window):
+    global acsessLst
+    acsessLst = []
+    for row in range(numrows):
+
+        for col in range(numcols):
+
+            global entry
+            entry = tkinter.Entry(window,width=25, fg='blue', font=('Arial',40, 'bold'), border=5)
+            
+            entry.grid(row=row+1, column=col+1)
+            #entry.grid_location(50,50)
+            entry.insert(0,startingDataLst[row][col])
+            acsessLst.append(entry)
+
+
+'''
+def updateDisplaySheet(window):
+    global acsessLst
+    acsessLst = []
     for row in range(numrows):
         for col in range(numcols):
             global entry
             entry = tkinter.Entry(window,width=25, fg='blue', font=('Arial',40, 'bold'), border=5)
             entry.grid(row=row+1, column=col+1)
-            #entry.grid_location(50,50)
-            entry.insert(0,lst[row][col])
+            entry.insert(0,startingDataLst[row][col])
+            acsessLst.append(entry)
+'''
 
-def getData():
-    lst.clear()
-
-    for i in range(numrows):
-        pass
-        #To-do:
-
-    return lst
+def getData(index):
+    return acsessLst[index].get()
+def showNewData():
+    for i in range():
+        acsessLst()
+def createDisplayLst():
+    displayLst = []
+    for index in range(numCells):
+        displayLst.append(getData(index))
+    return displayLst
