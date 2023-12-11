@@ -19,11 +19,11 @@ def runGUI():
   width=10, height= 3, font=("Serif", 20))
 
   volumeUpButton = ct.CTkButton(controller, text="Volume Up",
-  command=lambda: vm.volumeControl(True),
+  command=lambda: vm.volumeControl(True, controller),
   width=10, height=3, font=("Serif", 20))
 
   volumeDownButton = ct.CTkButton(controller, text="Volume Down",
-  command=lambda: vm.volumeControl(False),
+  command=lambda: vm.volumeControl(False, controller),
   width=10, height=3, font=("Serif", 20))
 
   startButton.pack(side=("left"), fill='y')

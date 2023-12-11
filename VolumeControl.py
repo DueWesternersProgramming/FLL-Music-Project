@@ -1,5 +1,4 @@
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
-import time
 
 increment = 0.02
 lowVolume = 0.5
@@ -15,23 +14,23 @@ for session in sessions:
         correctSession = session
         break
 
-def volumeControl(control):
+def volumeControl(control, window):
         previousVolume = volume.GetMasterVolume()
         if (control == True):
             print("volume up")
-            while previousVolume < highVolume:
+            if previousVolume < highVolume:
                 if (previousVolume + increment) > highVolume:
                     previousVolume = highVolume
                 else:
                     previousVolume = previousVolume + increment
                 volume.SetMasterVolume(previousVolume, None)
-                time.sleep(0.1)
+                window.after(100, lambda: volumeControl(control, window))
         if (control == False):
             print("Volume down")
-            while previousVolume > lowVolume:
+            if previousVolume > lowVolume:
                 if (previousVolume - increment) < lowVolume:
                     previousVolume = lowVolume
                 else:
                     previousVolume = previousVolume - increment
                 volume.SetMasterVolume(previousVolume, None)
-                time.sleep(0.1)
+                window.after(100, lambda: volumeControl(control, window))
