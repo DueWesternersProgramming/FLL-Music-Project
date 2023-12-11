@@ -14,9 +14,8 @@ def runGUI():
   controller.title("Controller Window")
   controller.geometry("430x250")
 
-
   startButton = ct.CTkButton(controller, text="Start Timer",
-  command=lambda: Timer.startTimer(timer, timerWindow), 
+  command=lambda: Timer.startTimer(timer), 
   width=10, height= 3, font=("Serif", 20))
 
   volumeUpButton = ct.CTkButton(controller, text="Volume Up",
@@ -35,8 +34,8 @@ def runGUI():
   timer.configure(font=("Serif", 180))
   timer.place(relx=.5, rely=.5,anchor="s")
 
-  sheet.initSheet(timerWindow)
-  print(sheet.getData())
+  #sheet.initSheet(timerWindow)
+  #print(sheet.getData())
 
 
   timerWindow.mainloop()

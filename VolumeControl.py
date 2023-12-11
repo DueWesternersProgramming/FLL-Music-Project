@@ -20,12 +20,18 @@ def volumeControl(control):
         if (control == True):
             print("volume up")
             while previousVolume < highVolume:
-                previousVolume = previousVolume + increment
+                if (previousVolume + increment) > highVolume:
+                    previousVolume = highVolume
+                else:
+                    previousVolume = previousVolume + increment
                 volume.SetMasterVolume(previousVolume, None)
                 time.sleep(0.1)
         if (control == False):
             print("Volume down")
             while previousVolume > lowVolume:
-                previousVolume = previousVolume - increment
+                if (previousVolume - increment) < lowVolume:
+                    previousVolume = lowVolume
+                else:
+                    previousVolume = previousVolume - increment
                 volume.SetMasterVolume(previousVolume, None)
                 time.sleep(0.1)
