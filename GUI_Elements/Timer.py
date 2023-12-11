@@ -46,7 +46,7 @@ def tick(timer, goal):
 
   timer.configure(text=minstr + ":" + secstr)
 
-  if (min == 0) and (sec == 0):
+  if (min <= 0) and (sec <= 0):
     timer.after(resetInterval, lambda: stopTimer(timer))
     running = False
   else:
