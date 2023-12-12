@@ -1,2 +1,3 @@
 customtkinter==5.2.1
 pycaw==20230407
+packaging==23.2
