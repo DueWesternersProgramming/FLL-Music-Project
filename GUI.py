@@ -34,8 +34,10 @@ def runGUI():
   timer.configure(font=("Serif", 180))
   timer.place(relx=.5, rely=.5,anchor="s")
 
-  #sheet.initSheet(timerWindow)
-  #print(sheet.getData())
+  sheet.initEntrySheet(timerWindow)
+  sheet.initDisplaySheet(controller)
+  
+  print(sheet.getData())
 
 
   timerWindow.mainloop()

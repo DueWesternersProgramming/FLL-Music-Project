@@ -14,22 +14,22 @@ numcols = len(startingDataLst[0])
 numCells = numcols*numrows
 
 def initDisplaySheet(window):
-    global acsessLst
-    acsessLst = []
+    global acsessDisplayLst
+    acsessDisplayLst = []
     for row in range(numrows):
 
         for col in range(numcols):
 
             global entry
-            entry = tkinter.Entry(window,width=25, fg='blue', font=('Arial',40, 'bold'), border=5)
+            entry = tkinter.Entry(window,width=15, fg='blue', font=('Arial',25, 'bold'), border=5)
             entry.grid(row=row+1, column=col+1)
-            #entry.grid_location(50,50)
+            
             entry.insert(0,startingDataLst[row][col])
-            acsessLst.append(entry)
+            acsessDisplayLst.append(entry)
 
 def initEntrySheet(window):
-    global acsessLst
-    acsessLst = []
+    global acsessEntryLst
+    acsessEntryLst = []
     for row in range(numrows):
 
         for col in range(numcols):
@@ -40,24 +40,12 @@ def initEntrySheet(window):
             entry.grid(row=row+1, column=col+1)
             #entry.grid_location(50,50)
             entry.insert(0,startingDataLst[row][col])
-            acsessLst.append(entry)
+            acsessEntryLst.append(entry)
 
-
-'''
-def updateDisplaySheet(window):
-    global acsessLst
-    acsessLst = []
-    for row in range(numrows):
-        for col in range(numcols):
-            global entry
-            entry = tkinter.Entry(window,width=25, fg='blue', font=('Arial',40, 'bold'), border=5)
-            entry.grid(row=row+1, column=col+1)
-            entry.insert(0,startingDataLst[row][col])
-            acsessLst.append(entry)
-'''
 
 def getData(index):
-    return acsessLst[index].get()
+    return acsessEntryLst[index].get()
+
 def showNewData():
     for i in range():
         acsessLst()
