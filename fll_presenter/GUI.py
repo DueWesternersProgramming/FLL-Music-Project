@@ -6,6 +6,9 @@ import tkinter, platform
 
 system = platform.system()
 
+# ONCE WE ADD AN APPLICATION SELECTOR, WE WILL NEED TO MAKE IT ONLY VISIBLE ON WINDOWS
+# WE ALSO STILL NEED INPUT SPOTS/SLIDERS FOR THE MIN MAX AND INCREMENT
+
 def runGUI():
   timerWindow = ct.CTk()
   timerWindow.geometry("400x350")
