@@ -12,7 +12,7 @@ if system == "Windows":
     '--windowed'
     ])
 
-else:
+elif system == "Linux":
     location = './fll_presenter/Main.py'
     PyInstaller.__main__.run([
     location,
