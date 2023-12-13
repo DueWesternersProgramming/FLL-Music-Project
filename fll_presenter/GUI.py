@@ -1,8 +1,10 @@
 import customtkinter as ct
-import VolumeControl as vm
 import GUI_Elements.Timer as Timer
 import GUI_Elements.sheet as sheet
-import tkinter
+import tkinter, platform
+
+if platform.system() == "Windows":
+  import VolumeControl as vm
 
 def runGUI():
   timerWindow = ct.CTk()
