@@ -1,9 +1,10 @@
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 
-increment = 0.02
-lowVolume = 0.5
-highVolume = 1.0
-application = "Spotify.exe"
+increment = 0.02              # Increment Per Update Tick
+updateTick = 100              # Update Tick Time In ms
+lowVolume = 0.5               # Minimum Goal Volume For Specific Application
+highVolume = 1.0              # Maximum Goal Volume For Specific Application
+application = "Spotify.exe"   # Specific Application To Control
 
 sessions = AudioUtilities.GetAllSessions()
 correctSession = sessions[0]
@@ -24,7 +25,7 @@ def volumeControl(control, window):
                 else:
                     previousVolume = previousVolume + increment
                 volume.SetMasterVolume(previousVolume, None)
-                window.after(100, lambda: volumeControl(control, window))
+                window.after(updateTick, lambda: volumeControl(control, window))
         if (control == False):
             print("Volume down")
             if previousVolume > lowVolume:
@@ -33,4 +34,4 @@ def volumeControl(control, window):
                 else:
                     previousVolume = previousVolume - increment
                 volume.SetMasterVolume(previousVolume, None)
-                window.after(100, lambda: volumeControl(control, window))
+                window.after(updateTick, lambda: volumeControl(control, window))
