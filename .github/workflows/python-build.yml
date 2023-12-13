@@ -30,7 +30,7 @@ jobs:
         python setup.py
     - uses: actions/upload-artifact@v3
       with:
-        name: Illumination-Engine
+        name: FLL Presenter
         path: |
           ${{github.workspace}}/dist/
         if-no-files-found: warn
