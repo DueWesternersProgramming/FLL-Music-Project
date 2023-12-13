@@ -5,11 +5,12 @@ Clone the repo:
 
 git clone https://github.com/DueWesternersProgramming/FLL-Music-Project.git
 
-Install prerequisites using pip, preferably in a new environment:
-`pip install -r requirements.txt`
-
 If you are running a linux distribution, you will need to install the library libasound2-dev
 An example of installing this library is `sudo apt install libasound2-dev -y`
+This package uses the ALSA system for audio volume control on Linux.
+
+Install prerequisites using pip, preferably in a new environment:
+`pip install -r requirements.txt`
 
 Run the *Main.py* file to start the application. The controller tab will house
 all if your controllers to start the timer and fade the volume. Full screen
