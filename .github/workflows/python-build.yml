@@ -26,7 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         sudo apt update
-        sudo apt install binutils libc-bin tcl -y
+        sudo apt install binutils libc-bin libasound2-dev -y
     - name: Build/Export
       run: |
         python Build.py
