@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build_matrix:
+  python_build_matrix:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
