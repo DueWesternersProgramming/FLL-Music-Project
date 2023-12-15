@@ -3,7 +3,7 @@ system = platform.system()
 if system == 'Windows':
     from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 elif system == 'Linux':
-    import alsaaudio
+    from alsaaudio import Mixer
 
 increment = 0.02              # Increment Per Update Tick
 updateTick = 100              # Update Tick Time In ms
@@ -12,6 +12,12 @@ highVolume = 0.7              # Maximum Goal Volume For Specific Application
 application = "Spotify.exe"   # Specific Application To Control (Windows)
 
 global volume
+
+def setVolumeControl(newLowVolume=lowVolume, newHighVolume=highVolume, newIncrement=increment):
+    global lowVolume,highVolume,increment
+    lowVolume = newLowVolume
+    highVolume = newHighVolume
+    increment = newIncrement
 
 def initWindowsAudio():
     global volume
@@ -23,7 +29,7 @@ def initWindowsAudio():
 
 def initLinuxAudio():
     global volume
-    volume = alsaaudio.Mixer()
+    volume = Mixer()
 
 if system == 'Windows':
     initWindowsAudio()
