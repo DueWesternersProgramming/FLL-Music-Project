@@ -42,7 +42,7 @@ def tick(timer, goal):
 
     total_seconds = (float(goal)-current_time_millis())/1000
     minutes = int(total_seconds/60)
-    seconds = int(total_seconds - (60 * min))
+    seconds = int(total_seconds - (60 * minutes))
 
     minstr = str(minutes)
     if len(str(seconds)) == 1:
