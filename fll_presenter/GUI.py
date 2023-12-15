@@ -1,7 +1,6 @@
 import customtkinter as ct
-import VolumeControl as vm
+import GUI_Elements.VolumeControl as vm
 import GUI_Elements.Timer as Timer
-import GUI_Elements.sheet as sheet
 import tkinter, platform
 
 system = platform.system()

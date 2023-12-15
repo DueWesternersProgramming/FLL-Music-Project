@@ -1,5 +1,6 @@
 customtkinter==5.2.1
 packaging==23.2
 pyinstaller==6.3.0
+PyWinCtl==0.3
 pycaw==20230407; sys_platform == 'win32'
 pyalsaaudio==0.10.0; sys_platform == 'linux'
