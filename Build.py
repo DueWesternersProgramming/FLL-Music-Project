@@ -1,20 +1,21 @@
-import PyInstaller.__main__
+"""Module to run PyInstaller to build the project"""
 import platform
+import PyInstaller.__main__
 
-location = ""
+LOCATION = ""
 system = platform.system()
 
 if system == "Windows":
-    location = (r'.\fll_presenter\Main.py')
+    LOCATION = r'.\fll_presenter\Main.py'
     PyInstaller.__main__.run([
-    location,
+    LOCATION,
     '--onefile',
     '--windowed'
     ])
 
 elif system == "Linux":
-    location = './fll_presenter/Main.py'
+    LOCATION = './fll_presenter/Main.py'
     PyInstaller.__main__.run([
-    location,
+    LOCATION,
     '--onefile'
     ])

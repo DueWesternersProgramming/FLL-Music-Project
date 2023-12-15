@@ -36,7 +36,7 @@ jobs:
       shell: bash
     - name: Build/Export
       run: |
-        python Build.py
+        python build.py
     - uses: actions/upload-artifact@v3
       with:
         name: FLL Presenter ${{ matrix.os }}
