@@ -3,3 +3,4 @@ dist
 .venv
 build
 Main.spec
+.vscode

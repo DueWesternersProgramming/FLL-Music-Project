@@ -18,11 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.12
+    - name: Set up Python 3.12.0
       uses: actions/setup-python@v4
       with:
         python-version: "3.12.0"
-        cache: 'pip'
     - name: Install APT Dependencies (Linux)
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -36,7 +35,7 @@ jobs:
       shell: bash
     - name: Build/Export
       run: |
-        python Build.py
+        python build.py
     - uses: actions/upload-artifact@v3
       with:
         name: FLL Presenter ${{ matrix.os }}
