@@ -68,6 +68,8 @@ def run_gui():
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
         command=set_audio_application)
         application_selector.pack(side="left")
+        application_selector.after(10000,
+        lambda:schedule_dropdown_update(controller, application_selector))
 
     timer = ct.CTkLabel(timer_window,text="2:30")
     timer.configure(font=("Serif", 700))
@@ -81,6 +83,13 @@ def run_gui():
     
 
     timer_window.mainloop()
+
+def schedule_dropdown_update(window, selector):
+    """Function to update the selector applications"""
+    selector.configure(values=wc.get_window_executable_names())
+    window.update()
+    selector.after(10000, lambda: schedule_dropdown_update(window, selector))
+
 
 def call_volume_control(option, controller, os):
     """Function to call volume control with a 1 second cooldown"""
