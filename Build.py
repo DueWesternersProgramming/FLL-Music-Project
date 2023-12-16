@@ -9,13 +9,13 @@ if system == "Windows":
     LOCATION = r'.\fll_presenter\Main.py'
     PyInstaller.__main__.run([
     LOCATION,
-    '--onefile',
+    #'--onefile',
     '--windowed'
     ])
 
 elif system == "Linux":
     LOCATION = './fll_presenter/Main.py'
     PyInstaller.__main__.run([
-    LOCATION,
-    '--onefile'
+    LOCATION
+    #,'--onefile'
     ])

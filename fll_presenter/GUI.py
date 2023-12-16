@@ -67,8 +67,9 @@ def run_gui():
         application_selector.pack(side="left")
 
     timer = ct.CTkLabel(timer_window,text="2:30")
-    timer.configure(font=("Serif", 180))
-    timer.place(relx=.5, rely=.5,anchor="s")
+    timer.configure(font=("Serif", 700))
+    timer.pack(fill='x')
+    #timer.place(relx=.5, rely=.5,anchor="s")
 
     timer_window.mainloop()    
 
