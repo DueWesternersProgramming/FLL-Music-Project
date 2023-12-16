@@ -18,11 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.12
+    - name: Set up Python 3.12.1
       uses: actions/setup-python@v4
       with:
-        python-version: "3.12.0"
-        cache: 'pip'
+        python-version: "3.12.1"
     - name: Install APT Dependencies (Linux)
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
