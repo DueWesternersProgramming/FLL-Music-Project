@@ -10,6 +10,10 @@ RESETINTERVAL = 5000    # ms
 INTERRUPT = False
 RUNNING = False
 
+def updateSize(t,size):
+    t.configure(font=("Serif", size))
+
+
 def current_time_millis():
     """Function returns the current time in ms"""
     return float(round(time.time()*1000))

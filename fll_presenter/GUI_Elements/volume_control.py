@@ -34,6 +34,7 @@ def set_volume_control(new_low_volume, new_high_volume):
     if new_low_volume < new_high_volume:
         LOWVOLUME = new_low_volume/100
         HIGHVOLUME = new_high_volume/100
+        print(LOWVOLUME,HIGHVOLUME)
 
 def init_windows_audio():
     """Function to initialize the Windows audio engine"""

@@ -33,7 +33,7 @@ def run_gui():
     command=lambda: Timer.stop_timer(timer),
     width=110, height=3, font=("Serif", 20))
 
-    timer_toggle_button = ct.CTkButton(controller, text="Hide Timer",
+    timer_toggle_button = ct.CTkButton(controller, text="Hide/Show Timer",
     command=lambda: wc.toggle_window("Timer Window"),
     width=110, height=3, font=("Serif", 20))
 
@@ -61,6 +61,9 @@ def run_gui():
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
 
+    def setTimerSize(scale):
+        Timer.updateSize(timer,scale)
+
     if system == "Windows":
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
         command=set_audio_application)
@@ -70,8 +73,14 @@ def run_gui():
     timer.configure(font=("Serif", 700))
     timer.pack(fill='x')
     #timer.place(relx=.5, rely=.5,anchor="s")
+    timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
+    orientation="vertical")
+    timer_size.configure(command=setTimerSize)
+    timer_size.pack(side=("right"), fill='y')
 
-    timer_window.mainloop()    
+    
+
+    timer_window.mainloop()
 
 def call_volume_control(option, controller, os):
     """Function to call volume control with a 1 second cooldown"""
@@ -79,6 +88,7 @@ def call_volume_control(option, controller, os):
     if time.time() > (LASTCLICKMS + CLICKCOOLDOWN):
         vm.volume_control(option, controller, os)
         LASTCLICKMS = time.time()
+
 
 def set_volume_minimum(min_volume):
     """Function to send the new volume minimum"""
@@ -91,3 +101,7 @@ def set_volume_maximum(max_volume):
 def set_audio_application(application):
     """Function to send the new audio application"""
     vm.set_volume_application(application)
+
+def killWindow(win):
+    print("Killing",win,"window")
+    win.destroy()
