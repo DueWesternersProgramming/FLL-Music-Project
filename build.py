@@ -6,7 +6,7 @@ LOCATION = ""
 system = platform.system()
 
 if system == "Windows":
-    LOCATION = r'.\fll_presenter\Main.py'
+    LOCATION = r'.\fll_presenter\main.py'
     PyInstaller.__main__.run([
     LOCATION,
     #'--onefile',
@@ -14,7 +14,7 @@ if system == "Windows":
     ])
 
 elif system == "Linux":
-    LOCATION = './fll_presenter/Main.py'
+    LOCATION = './fll_presenter/main.py'
     PyInstaller.__main__.run([
     LOCATION
     #,'--onefile'
