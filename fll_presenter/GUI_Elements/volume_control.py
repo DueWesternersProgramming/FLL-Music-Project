@@ -34,7 +34,7 @@ def set_volume_control(new_low_volume, new_high_volume):
     if new_low_volume < new_high_volume:
         LOWVOLUME = new_low_volume/100
         HIGHVOLUME = new_high_volume/100
-        print(LOWVOLUME,HIGHVOLUME)
+        #print(LOWVOLUME,HIGHVOLUME)
 
 def init_windows_audio():
     """Function to initialize the Windows audio engine"""
@@ -62,13 +62,13 @@ def run_window_update(control, window, os):
 def get_new_volume(control, previous_volume, modified_low, modified_high, modified_increment):
     """Function to return the new volume for the volume_control function"""
     if control is True:
-        print("volume up")
+        #print("volume up")
         if (previous_volume + modified_increment) > modified_high:
             previous_volume = modified_high
         else:
             previous_volume = previous_volume + modified_increment
     else:
-        print("Volume down")
+        #print("Volume down")
         if (previous_volume - modified_increment) < modified_low:
             previous_volume = modified_low
         else:

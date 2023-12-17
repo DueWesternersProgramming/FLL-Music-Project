@@ -22,7 +22,7 @@ def run_gui():
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("900x250")
+    controller.geometry("1050x250")
     controller.configure(background='#242424')
 
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
@@ -61,8 +61,9 @@ def run_gui():
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
 
-    def setTimerSize(scale):
-        Timer.updateSize(timer,scale)
+    def set_timer_size(scale):
+        """Function to update the size of the Timer widget"""
+        Timer.update_size(timer,scale)
 
     if system == "Windows":
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
@@ -72,15 +73,17 @@ def run_gui():
         lambda:schedule_dropdown_update(controller, application_selector))
 
     timer = ct.CTkLabel(timer_window,text="2:30")
-    timer.configure(font=("Serif", 700))
+    timer.configure(font=("Serif", 200))
     timer.pack(fill='x')
     #timer.place(relx=.5, rely=.5,anchor="s")
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
     orientation="vertical")
-    timer_size.configure(command=setTimerSize)
+    timer_size.configure(command=set_timer_size)
+    timer_size.set(200)
     timer_size.pack(side=("right"), fill='y')
 
-    
+    timer_window.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
+    controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
 
     timer_window.mainloop()
 
@@ -111,6 +114,8 @@ def set_audio_application(application):
     """Function to send the new audio application"""
     vm.set_volume_application(application)
 
-def killWindow(win):
-    print("Killing",win,"window")
-    win.destroy()
+def kill_windows(controller, timer_window):
+    """Function to kill the tkinter fll_presenter windows"""
+    #wc.show_window("Timer Window")
+    controller.destroy()
+    timer_window.destroy()

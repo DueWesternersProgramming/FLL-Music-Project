@@ -10,9 +10,9 @@ RESETINTERVAL = 5000    # ms
 INTERRUPT = False
 RUNNING = False
 
-def updateSize(t,size):
+def update_size(t,size):
+    """Function actually changes the size of the text"""
     t.configure(font=("Serif", size))
-
 
 def current_time_millis():
     """Function returns the current time in ms"""
