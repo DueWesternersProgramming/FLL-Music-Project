@@ -24,12 +24,12 @@ def run_gui():
     timer_window = tkinter.Tk()
     timer_window.geometry("400x350")
     timer_window.title("Timer Window")
-    timer_window.configure(background="grey")
+    timer_window.configure(background="#242424")
 
-    timer = ct.CTkLabel(timer_window,text="2:30",text_color="black")
-    timer.configure(font=("Serif", 200))
-    #timer.pack(fill='x')
-    timer.place(relx=.5, rely=.5,anchor="s")
+    timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
+    timer.configure(font=("Helvetica", 200))
+    #timer.pack(fill='x',side="center")
+    timer.place(relx=.5, rely=.5,anchor="c")
 
     #timer_window.configure(background=str(open_color_menu()))
 
@@ -140,7 +140,7 @@ def kill_windows(controller, timer_window):
 def open_color_menu():
     """Function to open a new color selector window for the color of the timer window"""
 
-    color = colorchooser.askcolor(title="Select a new color for the background of the display")[1]
+    color = colorchooser.askcolor(title="Select a new color for the background of the display",initialcolor="#242424")[1]
     #print("User Selected:",str(color))
     if color == None:
         return "grey"
