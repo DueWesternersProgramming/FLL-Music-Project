@@ -14,6 +14,12 @@ CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
+    timer_window = ct.CTk()
+    timer_window.geometry("400x350")
+    timer_window.title("Timer Window")
+    ct.set_appearance_mode("dark")
+    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
+    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
@@ -64,8 +70,6 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
-    update_color_button.pack(side=("right"), fill='y')
-
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
@@ -86,7 +90,7 @@ def run_gui():
         lambda:schedule_dropdown_update(controller, application_selector))
 
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
-    orientation="vertical",)
+    orientation="vertical")
     timer_size.configure(command=set_timer_size)
     timer_size.set(200)
     timer_size.pack(side=("right"), fill='y')
@@ -125,6 +129,7 @@ def set_audio_application(application):
 
 def kill_windows(controller, timer_window):
     """Function to kill the tkinter fll_presenter windows"""
+    #wc.show_window("Timer Window")
     controller.destroy()
     timer_window.destroy()
 
