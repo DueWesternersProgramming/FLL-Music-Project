@@ -6,8 +6,6 @@ import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
-from tkinter import colorchooser
-
 
 system = platform.system()
 LASTCLICKMS = 0
@@ -15,31 +13,17 @@ CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
+    timer_window = ct.CTk()
+    timer_window.geometry("400x350")
+    timer_window.title("Timer Window")
+    ct.set_appearance_mode("dark")
+    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
+    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
     controller.geometry("1050x250")
     controller.configure(background='#242424')
-
-    timer_window = tkinter.Tk()
-    timer_window.geometry("400x350")
-    timer_window.title("Timer Window")
-    timer_window.configure(background="#242424")
-
-    timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
-    timer.configure(font=("Helvetica", 200))
-    #timer.pack(fill='x',side="center")
-    timer.place(relx=.5, rely=.5,anchor="c")
-
-    #timer_window.configure(background=str(open_color_menu()))
-
-
-    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
-    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
-    
-    update_color_button = ct.CTkButton(controller, text="Update\nTimer\nBackground",
-    command=lambda: timer_window.configure(background=str(open_color_menu())),
-    width=110, height= 3, font=("Serif", 20))
 
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
@@ -69,8 +53,6 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
-    update_color_button.pack(side=("right"), fill='y')
-
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
@@ -90,18 +72,18 @@ def run_gui():
         application_selector.after(10000,
         lambda:schedule_dropdown_update(controller, application_selector))
 
-    
-
+    timer = ct.CTkLabel(timer_window,text="2:30")
+    timer.configure(font=("Serif", 200))
+    timer.pack(fill='x')
+    #timer.place(relx=.5, rely=.5,anchor="s")
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
-    orientation="vertical",)
+    orientation="vertical")
     timer_size.configure(command=set_timer_size)
     timer_size.set(200)
     timer_size.pack(side=("right"), fill='y')
 
     timer_window.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
     controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
-
-    
 
     timer_window.mainloop()
 
@@ -134,16 +116,6 @@ def set_audio_application(application):
 
 def kill_windows(controller, timer_window):
     """Function to kill the tkinter fll_presenter windows"""
+    #wc.show_window("Timer Window")
     controller.destroy()
     timer_window.destroy()
-
-def open_color_menu():
-    """Function to open a new color selector window for the color of the timer window"""
-
-    color = colorchooser.askcolor(title="Select a new color for the background of the display",initialcolor="#242424")[1]
-    #print("User Selected:",str(color))
-    if color == None:
-        return "grey"
-    else:
-
-        return color
