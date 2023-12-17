@@ -1,5 +1,6 @@
 """The module that creates and runs the gui"""
 import tkinter
+import tkinter.colorchooser
 import platform
 import time
 import customtkinter as ct
@@ -22,9 +23,26 @@ def run_gui():
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1050x250")
+    controller.geometry("1175x250")
     controller.configure(background='#242424')
 
+    timer_window = tkinter.Tk()
+    timer_window.geometry("400x350")
+    timer_window.title("Timer Window")
+    timer_window.configure(background="#242424")
+
+    timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
+    timer.configure(font=("Helvetica", 200))
+    timer.place(relx=.5, rely=.5,anchor="c")
+
+    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
+    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
+
+    update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
+    command=lambda: timer_window.configure(background=str(open_color_menu(timer_window))),
+    width=110, height= 3, font=("Serif", 20))
+    update_color_button.pack(side="right", fill="y")
+    
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
     width=110, height= 3, font=("Serif", 20))
@@ -53,6 +71,7 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
+    
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
@@ -72,10 +91,6 @@ def run_gui():
         application_selector.after(10000,
         lambda:schedule_dropdown_update(controller, application_selector))
 
-    timer = ct.CTkLabel(timer_window,text="2:30")
-    timer.configure(font=("Serif", 200))
-    timer.pack(fill='x')
-    #timer.place(relx=.5, rely=.5,anchor="s")
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
     orientation="vertical")
     timer_size.configure(command=set_timer_size)
@@ -119,3 +134,13 @@ def kill_windows(controller, timer_window):
     #wc.show_window("Timer Window")
     controller.destroy()
     timer_window.destroy()
+
+def open_color_menu(timer_window):
+    """Function to open a new color selector window for the color of the timer window"""
+
+    color = tkinter.colorchooser.askcolor(
+    title="Select a new color for the background of the display", initialcolor="#242424")[1]
+    #print("User Selected:",str(color))
+    if color is None:
+        return timer_window['background']
+    return color
