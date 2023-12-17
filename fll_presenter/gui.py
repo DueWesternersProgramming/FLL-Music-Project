@@ -1,13 +1,12 @@
 """The module that creates and runs the gui"""
 import tkinter
+import tkinter.colorchooser
 import platform
 import time
 import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
-from tkinter import colorchooser
-
 
 system = platform.system()
 LASTCLICKMS = 0
@@ -18,7 +17,7 @@ def run_gui():
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1050x250")
+    controller.geometry("1175x250")
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -28,17 +27,13 @@ def run_gui():
 
     timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
     timer.configure(font=("Helvetica", 200))
-    #timer.pack(fill='x',side="center")
     timer.place(relx=.5, rely=.5,anchor="c")
-
-    #timer_window.configure(background=str(open_color_menu()))
-
 
     #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
     #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
-    
-    update_color_button = ct.CTkButton(controller, text="Update\nTimer\nBackground",
-    command=lambda: timer_window.configure(background=str(open_color_menu())),
+
+    update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
+    command=lambda: timer_window.configure(background=str(open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
 
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
@@ -90,8 +85,6 @@ def run_gui():
         application_selector.after(10000,
         lambda:schedule_dropdown_update(controller, application_selector))
 
-    
-
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
     orientation="vertical",)
     timer_size.configure(command=set_timer_size)
@@ -100,8 +93,6 @@ def run_gui():
 
     timer_window.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
     controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
-
-    
 
     timer_window.mainloop()
 
@@ -137,13 +128,12 @@ def kill_windows(controller, timer_window):
     controller.destroy()
     timer_window.destroy()
 
-def open_color_menu():
+def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
 
-    color = colorchooser.askcolor(title="Select a new color for the background of the display",initialcolor="#242424")[1]
+    color = tkinter.colorchooser.askcolor(
+    title="Select a new color for the background of the display", initialcolor="#242424")[1]
     #print("User Selected:",str(color))
-    if color == None:
-        return "grey"
-    else:
-
-        return color
+    if color is None:
+        return timer_window['background']
+    return color
