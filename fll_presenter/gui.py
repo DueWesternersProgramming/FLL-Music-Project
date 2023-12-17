@@ -41,7 +41,8 @@ def run_gui():
     update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
     command=lambda: timer_window.configure(background=str(open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
-
+    update_color_button.pack(side="right", fill="y")
+    
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
     width=110, height= 3, font=("Serif", 20))
@@ -70,6 +71,7 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
+    
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
