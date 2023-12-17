@@ -116,8 +116,7 @@ def set_audio_application(application):
 
 def kill_windows(controller,timer_window):
     print("HAHAhe")
-    wc.show_window("Timer Window")
+    #wc.show_window("Timer Window")
     controller.destroy()
     timer_window.destroy()
 
-    
