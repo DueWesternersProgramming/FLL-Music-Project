@@ -18,3 +18,13 @@ def toggle_window(my_window):
         WINDOW.hide()
     else:
         WINDOW.show()
+
+def show_window(window):
+
+    global WINDOW
+
+    if WINDOW.isVisible:
+        pass
+    else:
+        WINDOW.show()
+

@@ -80,6 +80,9 @@ def run_gui():
     timer_size.configure(command=setTimerSize)
     timer_size.pack(side=("right"), fill='y')
 
+    timer_window.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
+    controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
+
     
 
     timer_window.mainloop()
@@ -111,6 +114,10 @@ def set_audio_application(application):
     """Function to send the new audio application"""
     vm.set_volume_application(application)
 
-def killWindow(win):
-    print("Killing",win,"window")
-    win.destroy()
+def kill_windows(controller,timer_window):
+    print("HAHAhe")
+    wc.show_window("Timer Window")
+    controller.destroy()
+    timer_window.destroy()
+
+    
