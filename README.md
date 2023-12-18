@@ -24,25 +24,20 @@ Look at this [link](https://pyinstaller.org/en/stable/requirements.html#gnu-linu
 If any issues arise, please open an issue [here](https://github.com/DueWesternersProgramming/FLL-Music-Project/issues).
 
 
-Documentation for the diffrent buttons and options:
+**Documentation for the diffrent buttons and options:**
 
-Start timer button - As labeled, starts the countdown timer when the match starts
+*Start Timer Button* - As labeled, starts the countdown timer when the match starts
 
-Stop timer button - Stops and resets the timer
+*Stop Timer Button* - Stops and resets the timer
 
-Hide/Show Timer button - On the display screen, you will need to supply your own google sheets/excel/sheets platform to display scores. You will need to place the timer widow over this window, and when the button is pressed the timer window will hide so the spreadsheet is displayed.
+*Hide/Show Timer Button* - On the display screen, you will need to supply your own google sheets/excel/sheets platform to display scores. You will need to place the timer widow over this window, and when the button is pressed the timer window will hide so the spreadsheet is displayed.
 
-Volume up/down buttons - These will fade the volume to the specified higher/lower volume.
+*Volume Up/Down Buttons* - These will fade the volume to the specified higher/lower volume.
 
-Volume sliders - The first slider is where you can specify the volume you want to fade down to when the volume down button is pressed. The one on the right will specify the volume to fade to when the volume up button is pressed.
+*Volume Sliders* - The first slider is where you can specify the volume you want to fade down to when the volume down button is pressed. The one on the right will specify the volume to fade to when the volume up button is pressed.
 
-Drop down - This menu is the place you can select the application to change the volume for. Only this app's master volume will be changed.
+*Drop-Down (Windows Only)* - This menu is the place you can select the application to change the volume for. Only this app's master volume will be changed.
 
-Change timer background button - this will open a color selector menu to select a new color for the background of the timer window.
+*Change Timer Background Button* - this will open a color selector menu to select a new color for the background of the timer window.
 
-Toggle full screen button - This will toggle full screen for the timer (display) window.
-
-
-
-
-
+*Toggle Full Screen Button* - This will toggle full screen for the timer (display) window.
