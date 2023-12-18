@@ -11,6 +11,7 @@ import GUI_Elements.timer as Timer
 system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
+SCREENTOGGLE = False
 
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
@@ -24,7 +25,7 @@ def run_gui():
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1175x250")
+    controller.geometry("1325x250")
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -35,9 +36,9 @@ def run_gui():
     timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
     timer.configure(font=("Helvetica", 200))
     timer.place(relx=.5, rely=.5,anchor="c")
-    
+
     toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
-    command=lambda:toggleFullScreen(timer_window),
+    command=lambda:toggle_full_screen(timer_window),
     width=110, height= 3, font=("Serif", 20))
     toggle_full_screen_button.pack(side="right", fill="y")
 
@@ -45,7 +46,7 @@ def run_gui():
     command=lambda: timer_window.configure(background=str(open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
     update_color_button.pack(side="right", fill="y")
-    
+
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
     width=110, height= 3, font=("Serif", 20))
@@ -74,7 +75,7 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
-    
+
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
@@ -83,7 +84,6 @@ def run_gui():
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
 
-    
 
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""
@@ -106,8 +106,6 @@ def run_gui():
     controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
 
     timer_window.mainloop()
-
-
 
 
 def schedule_dropdown_update(window, selector):
@@ -139,7 +137,6 @@ def set_audio_application(application):
 
 def kill_windows(controller, timer_window):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
-    #wc.show_window("Timer Window")
     controller.destroy()
     timer_window.destroy()
     exit()
@@ -147,23 +144,20 @@ def kill_windows(controller, timer_window):
 def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
     color = tkinter.colorchooser.askcolor(
-    title="Select a new color for the background of the display", initialcolor="#242424")[1]
-    #print("User Selected:",str(color))
+    title="Select a new color for the background of the display", initialcolor=timer_window['background'])[1]
     if color is None:
         return timer_window['background']
     return color
 
-screenToggle = False
-
-def toggleFullScreen(window):
+def toggle_full_screen(window):
     """Function that uses a boolean to toggle full screen on and off for the argument window"""
-    global screenToggle
-    if screenToggle == False:
+    global SCREENTOGGLE
+    if SCREENTOGGLE is False:
         full_screen(window)
-        screenToggle = True
-    elif screenToggle == True:
+        SCREENTOGGLE = True
+    elif SCREENTOGGLE is True:
         exit_full_screen(window)
-        screenToggle = False
+        SCREENTOGGLE = False
 
 
 def full_screen(window):
