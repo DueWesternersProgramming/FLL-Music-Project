@@ -11,19 +11,21 @@ import GUI_Elements.timer as Timer
 system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
+SCREENTOGGLE = False
 
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
     timer_window = ct.CTk()
-    timer_window.geometry("400x350")
-    timer_window.title("Timer Window")
+    timer_window.wm_geometry("400x350")
+    timer_window.wm_title("Timer Window")
     ct.set_appearance_mode("dark")
+
     #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
     #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1175x250")
+    controller.geometry("1325x250")
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -35,14 +37,16 @@ def run_gui():
     timer.configure(font=("Helvetica", 200))
     timer.place(relx=.5, rely=.5,anchor="c")
 
-    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
-    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
+    toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
+    command=lambda:toggle_full_screen(timer_window),
+    width=110, height= 3, font=("Serif", 20))
+    toggle_full_screen_button.pack(side="right", fill="y")
 
     update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
     command=lambda: timer_window.configure(background=str(open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
     update_color_button.pack(side="right", fill="y")
-    
+
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
     width=110, height= 3, font=("Serif", 20))
@@ -71,7 +75,7 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
-    
+
     start_timer_button.pack(side=("left"), fill='y')
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
@@ -79,6 +83,7 @@ def run_gui():
     volume_down_button.pack(side=("left"), fill='y')
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
+
 
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""
@@ -101,6 +106,7 @@ def run_gui():
     controller.protocol("WM_DELETE_WINDOW", lambda:kill_windows(controller,timer_window))
 
     timer_window.mainloop()
+
 
 def schedule_dropdown_update(window, selector):
     """Function to update the selector applications"""
@@ -130,17 +136,34 @@ def set_audio_application(application):
     vm.set_volume_application(application)
 
 def kill_windows(controller, timer_window):
-    """Function to kill the tkinter fll_presenter windows"""
-    #wc.show_window("Timer Window")
+    """Function to kill the tkinter fll_presenter windows and exit the program"""
     controller.destroy()
     timer_window.destroy()
+    exit()
 
 def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
-
     color = tkinter.colorchooser.askcolor(
-    title="Select a new color for the background of the display", initialcolor="#242424")[1]
-    #print("User Selected:",str(color))
+    title="Select a new color for the background of the display", initialcolor=timer_window['background'])[1]
     if color is None:
         return timer_window['background']
     return color
+
+def toggle_full_screen(window):
+    """Function that uses a boolean to toggle full screen on and off for the argument window"""
+    global SCREENTOGGLE
+    if SCREENTOGGLE is False:
+        full_screen(window)
+        SCREENTOGGLE = True
+    elif SCREENTOGGLE is True:
+        exit_full_screen(window)
+        SCREENTOGGLE = False
+
+
+def full_screen(window):
+    """Function that fullscreens the supplied window"""
+    window.attributes("-fullscreen", True)
+
+def exit_full_screen(window):
+    """Function that exits fullscreen on the supplied window"""
+    window.attributes("-fullscreen", False)
