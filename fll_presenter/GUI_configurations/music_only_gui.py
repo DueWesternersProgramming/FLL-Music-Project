@@ -2,31 +2,19 @@
 import tkinter
 import tkinter.colorchooser
 import platform
-import time
 import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
-import GUI_Elements.timer as Timer
-import GUI_configurations.main_gui as main_gui
-
+from GUI_configurations import main_gui
 
 system = platform.system()
-LASTCLICKMS = 0
-CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
-SCREENTOGGLE = False
 
 def run_gui():
-    """Function creates the main gui and buttons as well as starting the event loop"""
-
-
-    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
-    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
-
+    """Function creates the music gui and buttons as well as starting the event loop"""
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1325x250")
+    controller.geometry("500x250")
     controller.configure(background='#242424')
-
 
     volume_up_button = ct.CTkButton(controller, text="Volume Up",
     command=lambda: main_gui.call_volume_control(True, controller, system),
@@ -49,8 +37,6 @@ def run_gui():
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
 
-
-
     if system == "Windows":
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
         command=main_gui.set_audio_application)
@@ -58,8 +44,6 @@ def run_gui():
         application_selector.after(10000,
         lambda:main_gui.schedule_dropdown_update(controller, application_selector))
 
-
     controller.protocol("WM_DELETE_WINDOW", lambda:main_gui.kill_windows(controller))
 
     controller.mainloop()
-

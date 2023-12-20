@@ -2,6 +2,7 @@
 import tkinter
 import tkinter.colorchooser
 import platform
+import sys
 import time
 import customtkinter as ct
 import GUI_Elements.volume_control as vm
@@ -16,14 +17,6 @@ SCREENTOGGLE = False
 
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
-    timer_window = ct.CTk()
-    timer_window.geometry("400x350")
-    timer_window.title("Timer Window")
-    ct.set_appearance_mode("dark")
-
-    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
-    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
-
     controller = tkinter.Tk()
     controller.title("Controller Window")
     controller.geometry("1325x250")
@@ -140,15 +133,16 @@ def kill_windows(controller, timer_window = None, kill_program = True):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
     print("KILLING PROGRAM/WINDOW(S)")
     controller.destroy()
-    if timer_window != None:
+    if timer_window is not None:
         timer_window.destroy()
-    if kill_program == True:
-        exit()
+    if kill_program is True:
+        sys.exit()
 
 def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
     color = tkinter.colorchooser.askcolor(
-    title="Select a new color for the background of the display", initialcolor=timer_window['background'])[1]
+    title="Select a new color for the background of the display",
+                        initialcolor=timer_window['background'])[1]
     if color is None:
         return timer_window['background']
     return color

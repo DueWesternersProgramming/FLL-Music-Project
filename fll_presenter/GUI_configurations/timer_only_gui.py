@@ -2,31 +2,19 @@
 import tkinter
 import tkinter.colorchooser
 import platform
-import time
 import customtkinter as ct
-import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
-import GUI_configurations.main_gui as main_gui
+from GUI_configurations import main_gui
 
 system = platform.system()
-LASTCLICKMS = 0
-CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
 
 def run_gui():
-    """Function creates the main gui and buttons as well as starting the event loop"""
-    timer_window = ct.CTk()
-    timer_window.geometry("400x350")
-    timer_window.title("Timer Window")
-    ct.set_appearance_mode("dark")
-
-    #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
-    #timer_window.bind("<Escape>", lambda:timer_window.attributes("-fullscreen", False))
-
+    """Function creates the timer gui and buttons as well as starting the event loop"""
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1325x250")
+    controller.geometry("785x250")
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -64,13 +52,9 @@ def run_gui():
     stop_timer_button.pack(side=("left"), fill='y')
     timer_toggle_button.pack(side=("left"), fill='y')
 
-
-
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""
         Timer.update_size(timer,scale)
-
-
 
     timer_size = ct.CTkSlider(controller, width=20, from_=0, to=1000,
     orientation="vertical")
@@ -82,5 +66,3 @@ def run_gui():
     controller.protocol("WM_DELETE_WINDOW", lambda:main_gui.kill_windows(controller,timer_window))
 
     timer_window.mainloop()
-
-
