@@ -1,4 +1,4 @@
 """Main module that starts everything"""
-import gui
+import GUI_configurations.gui
 
-gui.run_gui()
+GUI_configurations.gui.run_gui()
