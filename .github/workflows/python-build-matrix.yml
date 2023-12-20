@@ -24,7 +24,7 @@ jobs:
         python-version: "3.12.0"
     - name: Install APT Dependencies (Linux)
       run:   |
-        if [ "$RUNNER_OS" == "Linux" ]; then sudo apt update; sudo apt install libasound2-dev -y fi
+        if [ "$RUNNER_OS" == "Linux" ]; then sudo apt update; sudo apt install libasound2-dev -y; fi
       shell: bash
     - name: Install Shiv
       run: |
