@@ -17,8 +17,8 @@ SCREENTOGGLE = False
 def run_gui():
     """Function creates the main gui and buttons as well as starting the event loop"""
     timer_window = ct.CTk()
-    timer_window.wm_geometry("400x350")
-    timer_window.wm_title("Timer Window")
+    timer_window.geometry("400x350")
+    timer_window.title("Timer Window")
     ct.set_appearance_mode("dark")
 
     #timer_window.bind("<F11>", lambda:timer_window.attributes("-fullscreen", True))
@@ -136,11 +136,14 @@ def set_audio_application(application):
     """Function to send the new audio application"""
     vm.set_volume_application(application)
 
-def kill_windows(controller, timer_window):
+def kill_windows(controller, timer_window = None, kill_program = True):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
+    print("KILLING PROGRAM/WINDOW(S)")
     controller.destroy()
-    timer_window.destroy()
-    exit()
+    if timer_window != None:
+        timer_window.destroy()
+    if kill_program == True:
+        exit()
 
 def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
