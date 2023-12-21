@@ -18,9 +18,7 @@ all if your controllers to start the timer and fade the volume. Full screen
 for the controller is not required due to scaling, but scale up the display/timer screen
 to the size of your screen.
 
-If you want to build a fully-packaged executable file, run the *Build.py* file.
-Linux users, if you plan to build the project for distribution, you will need two more packages.
-Look at this [link](https://pyinstaller.org/en/stable/requirements.html#gnu-linux) for more information.
+If you want to build a fully-packaged executable file, run the *new command that's not ready yet ;)*.
 
 If any issues arise, please open an issue [here](https://github.com/DueWesternersProgramming/FLL-Music-Project/issues).
 
