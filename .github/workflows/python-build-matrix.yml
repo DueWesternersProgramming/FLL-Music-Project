@@ -18,10 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.11.7
+    - name: Set up Python 3.12.1
       uses: actions/setup-python@v4
       with:
-        python-version: "3.11.7"
+        python-version: "3.12.1"
     - name: Install APT Dependencies (Linux)
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then sudo apt update; sudo apt install libasound2-dev -y; fi
@@ -31,10 +31,10 @@ jobs:
         python -m pip install --upgrade shiv
     - name: Build/Export
       run: |
-        shiv --site-packages fll_presenter -e main:main -o fll_presenter.pyz -r requirements.txt
+        shiv --site-packages fll_presenter -e main:main -o fll_presenter.pyzw -r requirements.txt
     - uses: actions/upload-artifact@v3
       with:
         name: FLL Presenter ${{ matrix.os }}
         path: |
-          ${{github.workspace}}/fll_presenter.pyz
+          ${{github.workspace}}/fll_presenter.pyzw
         if-no-files-found: warn
