@@ -18,10 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.10.11
+    - name: Set up Python 3.11.3
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10.11"
+        python-version: "3.11.3"
     - name: Install APT Dependencies (Linux)
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then sudo apt update; sudo apt install libasound2-dev -y; fi
