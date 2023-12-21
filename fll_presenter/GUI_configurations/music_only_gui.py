@@ -5,7 +5,7 @@ import platform
 import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
-from GUI_configurations import main_gui
+import shared_functions
 
 system = platform.system()
 
@@ -17,19 +17,19 @@ def run_gui():
     controller.configure(background='#242424')
 
     volume_up_button = ct.CTkButton(controller, text="Volume Up",
-    command=lambda: main_gui.call_volume_control(True, controller, system),
+    command=lambda: shared_functions.call_volume_control(True, controller, system),
     width=110, height=3, font=("Serif", 20))
 
     volume_down_button = ct.CTkButton(controller, text="Volume Down",
-    command=lambda: main_gui.call_volume_control(False, controller, system),
+    command=lambda: shared_functions.call_volume_control(False, controller, system),
     width=110, height=3, font=("Serif", 20))
 
     min_volume_slider = ct.CTkSlider(controller, width=20, from_=0, to=100,
-    number_of_steps=100, orientation="vertical", command=main_gui.set_volume_minimum)
+    number_of_steps=100, orientation="vertical", command=shared_functions.set_volume_minimum)
     min_volume_slider.set(vm.get_volume_control()[0])
 
     max_volume_slider = ct.CTkSlider(controller, width=20, from_=0, to=100,
-    number_of_steps=100, orientation="vertical", command=main_gui.set_volume_maximum)
+    number_of_steps=100, orientation="vertical", command=shared_functions.set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
     volume_up_button.pack(side=("left"), fill='y')
@@ -39,11 +39,11 @@ def run_gui():
 
     if system == "Windows":
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
-        command=main_gui.set_audio_application)
+        command=shared_functions.set_audio_application)
         application_selector.pack(side="left")
         application_selector.after(10000,
-        lambda:main_gui.schedule_dropdown_update(controller, application_selector))
+        lambda:shared_functions.schedule_dropdown_update(controller, application_selector))
 
-    controller.protocol("WM_DELETE_WINDOW", lambda:main_gui.kill_windows(controller))
+    controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller))
 
     controller.mainloop()

@@ -5,7 +5,7 @@ import platform
 import customtkinter as ct
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
-from GUI_configurations import main_gui
+import shared_functions
 
 system = platform.system()
 SCREENTOGGLE = False
@@ -27,12 +27,12 @@ def run_gui():
     timer.place(relx=.5, rely=.5,anchor="c")
 
     toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
-    command=lambda:main_gui.toggle_full_screen(timer_window),
+    command=lambda:shared_functions.toggle_full_screen(timer_window),
     width=110, height= 3, font=("Serif", 20))
     toggle_full_screen_button.pack(side="right", fill="y")
 
     update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
-    command=lambda: timer_window.configure(background=str(main_gui.open_color_menu(timer_window))),
+    command=lambda: timer_window.configure(background=str(shared_functions.open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
     update_color_button.pack(side="right", fill="y")
 
@@ -62,7 +62,7 @@ def run_gui():
     timer_size.set(200)
     timer_size.pack(side=("right"), fill='y')
 
-    timer_window.protocol("WM_DELETE_WINDOW", lambda:main_gui.kill_windows(controller,timer_window))
-    controller.protocol("WM_DELETE_WINDOW", lambda:main_gui.kill_windows(controller,timer_window))
+    timer_window.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
+    controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
 
     timer_window.mainloop()
