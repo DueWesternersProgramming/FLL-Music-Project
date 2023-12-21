@@ -4,7 +4,7 @@ import customtkinter as ct
 from GUI_configurations import main_gui
 import GUI_configurations.music_only_gui as music_gui
 import GUI_configurations.timer_only_gui as timer_gui
-
+import shared_functions
 system = platform.system()
 CONFIGWINDOW = None
 
@@ -29,8 +29,10 @@ def run_gui():
     command=lambda win = CONFIGWINDOW:open_music_gui(win), font=("Serif", 30))
     music_only_gui.pack(side="top",fill="x")
 
+    switch = ct.CTkSwitch(CONFIGWINDOW).pack(side="top")
+
     CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
-    lambda window=CONFIGWINDOW: main_gui.kill_windows(window))
+    lambda window=CONFIGWINDOW: shared_functions.kill_windows(window))
     CONFIGWINDOW.mainloop()
 
 def open_full_gui(window):
@@ -48,3 +50,6 @@ def open_timer_gui(window):
     """Function to open the timer gui"""
     window.destroy()
     timer_gui.run_gui()
+
+def set_gui_orientation():
+    pass
