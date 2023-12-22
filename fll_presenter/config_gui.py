@@ -7,7 +7,7 @@ import GUI_configurations.timer_only_gui as timer_gui
 import shared_functions
 system = platform.system()
 CONFIGWINDOW = None
-
+global switch
 def run_gui():
     """Function creates the config gui and buttons as well as starting the event loop"""
 
@@ -16,6 +16,22 @@ def run_gui():
     CONFIGWINDOW.wm_geometry("400x150")
     CONFIGWINDOW.wm_title("FLL Presenter")
     ct.set_appearance_mode("dark")
+
+    def open_full_gui(window):
+        """Function to open the full gui"""
+        #print(switch.get())
+        window.destroy()
+        main_gui.run_gui(switch.get())
+
+    def open_music_gui(window):
+        """Function to open the music gui"""
+        window.destroy()
+        music_gui.run_gui(switch.get())
+
+    def open_timer_gui(window):
+        """Function to open the timer gui"""
+        window.destroy()
+        timer_gui.run_gui(switch.get())
 
     full_gui = ct.CTkButton(CONFIGWINDOW,text="Full Options",
     command=lambda win = CONFIGWINDOW:open_full_gui(win), font=("Serif", 30))
@@ -29,27 +45,10 @@ def run_gui():
     command=lambda win = CONFIGWINDOW:open_music_gui(win), font=("Serif", 30))
     music_only_gui.pack(side="top",fill="x")
 
-    switch = ct.CTkSwitch(CONFIGWINDOW).pack(side="top")
-
+    switch = ct.CTkSwitch(CONFIGWINDOW, text="Turn to true for\nvertical arangement")
+    switch.pack(side="top")
+    print(switch.get())
     CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
     lambda window=CONFIGWINDOW: shared_functions.kill_windows(window))
     CONFIGWINDOW.mainloop()
 
-def open_full_gui(window):
-    """Function to open the full gui"""
-    window.destroy()
-    main_gui.run_gui()
-
-def open_music_gui(window):
-    """Function to open the music gui"""
-    window.destroy()
-    music_gui.run_gui()
-
-
-def open_timer_gui(window):
-    """Function to open the timer gui"""
-    window.destroy()
-    timer_gui.run_gui()
-
-def set_gui_orientation():
-    pass

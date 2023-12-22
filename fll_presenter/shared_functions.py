@@ -1,3 +1,4 @@
+"""File to hold the shared functions between timer and controller windows"""
 import tkinter
 import tkinter.colorchooser
 import platform
@@ -8,7 +9,6 @@ import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
 
-"""File to hold the shared functions between timer and controller windows"""
 system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
