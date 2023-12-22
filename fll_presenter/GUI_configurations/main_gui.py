@@ -2,8 +2,6 @@
 import tkinter
 import tkinter.colorchooser
 import platform
-import sys
-import time
 import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
@@ -19,15 +17,17 @@ def run_gui(orientation):
         pack_var = "left"
         second_pack_var = "right"
         fill_var = "y"
+        controller_size = "1325x250"
         
     elif orientation == 1:
         pack_var = "top"
         second_pack_var = "bottom"
         fill_var = "x"
+        controller_size = "250x600"
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1325x250")
+    controller.geometry(controller_size)
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -83,8 +83,8 @@ def run_gui(orientation):
     timer_toggle_button.pack(side=(pack_var), fill=fill_var)
     volume_up_button.pack(side=(pack_var), fill=fill_var)
     volume_down_button.pack(side=(pack_var), fill=fill_var)
-    min_volume_slider.pack(side=(pack_var), fill="y")
-    max_volume_slider.pack(side=(pack_var), fill="y")
+    min_volume_slider.pack(side=("left"), fill="y")
+    max_volume_slider.pack(side=("left"), fill="y")
 
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""
@@ -93,7 +93,7 @@ def run_gui(orientation):
     if system == "Windows":
         application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
         command=shared_functions.set_audio_application)
-        application_selector.pack(side=pack_var)
+        application_selector.pack(side="left")
         application_selector.after(10000,
         lambda:shared_functions.schedule_dropdown_update(controller, application_selector))
 
@@ -101,7 +101,7 @@ def run_gui(orientation):
     orientation="vertical")
     timer_size.configure(command=set_timer_size)
     timer_size.set(200)
-    timer_size.pack(side=(second_pack_var), fill="y")
+    timer_size.pack(side=("left"), fill="y")
 
     timer_window.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
     controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))

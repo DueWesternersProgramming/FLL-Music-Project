@@ -13,7 +13,7 @@ def run_gui():
 
     global CONFIGWINDOW
     CONFIGWINDOW = ct.CTk()
-    CONFIGWINDOW.wm_geometry("400x150")
+    CONFIGWINDOW.wm_geometry("400x175")
     CONFIGWINDOW.wm_title("FLL Presenter")
     ct.set_appearance_mode("dark")
 
@@ -45,10 +45,9 @@ def run_gui():
     command=lambda win = CONFIGWINDOW:open_music_gui(win), font=("Serif", 30))
     music_only_gui.pack(side="top",fill="x")
 
-    switch = ct.CTkSwitch(CONFIGWINDOW, text="Turn to true for\nvertical arangement")
+    switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
     switch.pack(side="top")
     print(switch.get())
     CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
     lambda window=CONFIGWINDOW: shared_functions.kill_windows(window))
     CONFIGWINDOW.mainloop()
-

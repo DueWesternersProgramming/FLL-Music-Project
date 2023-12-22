@@ -16,14 +16,17 @@ def run_gui(orientation):
         pack_var = "left"
         second_pack_var = "right"
         fill_var = "y"
-        
+        controller_size = "785x250"
+
     elif orientation == 1:
         pack_var = "top"
         second_pack_var = "bottom"
         fill_var = "x"
+        controller_size = "300x500"
+
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("785x250")
+    controller.geometry(controller_size)
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -34,16 +37,6 @@ def run_gui(orientation):
     timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
     timer.configure(font=("Helvetica", 200))
     timer.place(relx=.5, rely=.5,anchor="c")
-
-    toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
-    command=lambda:shared_functions.toggle_full_screen(timer_window),
-    width=110, height= 3, font=("Serif", 20))
-    toggle_full_screen_button.pack(side=second_pack_var, fill=fill_var)
-
-    update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
-    command=lambda: timer_window.configure(background=str(shared_functions.open_color_menu(timer_window))),
-    width=110, height= 3, font=("Serif", 20))
-    update_color_button.pack(side=second_pack_var, fill=fill_var)
 
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
@@ -56,10 +49,20 @@ def run_gui(orientation):
     timer_toggle_button = ct.CTkButton(controller, text="Hide/Show Timer",
     command=lambda: wc.toggle_window("Timer Window"),
     width=110, height=3, font=("Serif", 20))
+    
+    update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
+    command=lambda: timer_window.configure(background=str(shared_functions.open_color_menu(timer_window))),
+    width=115, height= 3, font=("Serif", 20))
+    
+    toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
+    command=lambda:shared_functions.toggle_full_screen(timer_window),
+    width=110, height= 3, font=("Serif", 20))
 
     start_timer_button.pack(side=(pack_var), fill=fill_var)
     stop_timer_button.pack(side=(pack_var), fill=fill_var)
     timer_toggle_button.pack(side=(pack_var), fill=fill_var)
+    update_color_button.pack(side=(pack_var), fill=fill_var)
+    toggle_full_screen_button.pack(side=(pack_var), fill=fill_var)
 
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""

@@ -4,7 +4,6 @@ import tkinter.colorchooser
 import platform
 import sys
 import time
-import customtkinter as ct
 import GUI_Elements.volume_control as vm
 import GUI_Elements.window_control as wc
 import GUI_Elements.timer as Timer
