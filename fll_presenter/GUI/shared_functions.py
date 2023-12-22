@@ -7,6 +7,7 @@ import customtkinter as ct
 from .GUI_Elements import volume_control as vm
 from .GUI_Elements import window_control as wc
 from .GUI_Elements import timer as Timer
+from .window_creation import controller_window,timer_window
 
 """File to hold the shared functions between timer and controller windows"""
 system = platform.system()
