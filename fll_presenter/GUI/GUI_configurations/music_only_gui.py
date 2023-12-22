@@ -9,11 +9,21 @@ import GUI.shared_functions as shared_functions
 
 system = platform.system()
 
-def run_gui():
+def run_gui(orientation):
     """Function creates the music gui and buttons as well as starting the event loop"""
+    if orientation == 0:
+        pack_var = "left"
+        fill_var = "y"
+        controller_size = "500x250"
+        
+    elif orientation == 1:
+        pack_var = "top"
+        fill_var = "x"
+        controller_size = "250x300"
+
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("500x250")
+    controller.geometry(controller_size)
     controller.configure(background='#242424')
 
     volume_up_button = ct.CTkButton(controller, text="Volume Up",
@@ -32,8 +42,8 @@ def run_gui():
     number_of_steps=100, orientation="vertical", command=shared_functions.set_volume_maximum)
     max_volume_slider.set(vm.get_volume_control()[1])
 
-    volume_up_button.pack(side=("left"), fill='y')
-    volume_down_button.pack(side=("left"), fill='y')
+    volume_up_button.pack(side=(pack_var), fill=fill_var)
+    volume_down_button.pack(side=(pack_var), fill=fill_var)
     min_volume_slider.pack(side=("left"), fill='y')
     max_volume_slider.pack(side=("left"), fill='y')
 

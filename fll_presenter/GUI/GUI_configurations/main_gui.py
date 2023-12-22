@@ -15,11 +15,23 @@ LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
 
-def run_gui():
+def run_gui(orientation):
     """Function creates the main gui and buttons as well as starting the event loop"""
+    if orientation == 0:
+        pack_var = "left"
+        second_pack_var = "right"
+        fill_var = "y"
+        controller_size = "1325x250"
+        
+    elif orientation == 1:
+        pack_var = "top"
+        second_pack_var = "bottom"
+        fill_var = "x"
+        controller_size = "250x600"
+
     controller = tkinter.Tk()
     controller.title("Controller Window")
-    controller.geometry("1325x250")
+    controller.geometry(controller_size)
     controller.configure(background='#242424')
 
     timer_window = tkinter.Tk()
@@ -34,12 +46,12 @@ def run_gui():
     toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
     command=lambda:shared_functions.toggle_full_screen(timer_window),
     width=110, height= 3, font=("Serif", 20))
-    toggle_full_screen_button.pack(side="right", fill="y")
+    toggle_full_screen_button.pack(side=second_pack_var, fill=fill_var)
 
     update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
     command=lambda: timer_window.configure(background=str(shared_functions.open_color_menu(timer_window))),
     width=110, height= 3, font=("Serif", 20))
-    update_color_button.pack(side="right", fill="y")
+    update_color_button.pack(side=second_pack_var, fill=fill_var)
 
     start_timer_button = ct.CTkButton(controller, text="Start Timer",
     command=lambda: Timer.start_timer(timer),
@@ -70,14 +82,13 @@ def run_gui():
     max_volume_slider.set(vm.get_volume_control()[1])
 
 
-    start_timer_button.pack(side=("left"), fill='y')
-    stop_timer_button.pack(side=("left"), fill='y')
-    timer_toggle_button.pack(side=("left"), fill='y')
-    volume_up_button.pack(side=("left"), fill='y')
-    volume_down_button.pack(side=("left"), fill='y')
-    min_volume_slider.pack(side=("left"), fill='y')
-    max_volume_slider.pack(side=("left"), fill='y')
-
+    start_timer_button.pack(side=(pack_var), fill=fill_var)
+    stop_timer_button.pack(side=(pack_var), fill=fill_var)
+    timer_toggle_button.pack(side=(pack_var), fill=fill_var)
+    volume_up_button.pack(side=(pack_var), fill=fill_var)
+    volume_down_button.pack(side=(pack_var), fill=fill_var)
+    min_volume_slider.pack(side=("left"), fill="y")
+    max_volume_slider.pack(side=("left"), fill="y")
 
     def set_timer_size(scale):
         """Function to update the size of the Timer widget"""
@@ -94,12 +105,9 @@ def run_gui():
     orientation="vertical")
     timer_size.configure(command=set_timer_size)
     timer_size.set(200)
-    timer_size.pack(side=("right"), fill='y')
+    timer_size.pack(side=("left"), fill="y")
 
     timer_window.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
     controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
 
     timer_window.mainloop()
-
-
-
