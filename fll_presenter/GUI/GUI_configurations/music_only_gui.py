@@ -3,9 +3,9 @@ import tkinter
 import tkinter.colorchooser
 import platform
 import customtkinter as ct
-import GUI_Elements.volume_control as vm
-import GUI_Elements.window_control as wc
-import shared_functions
+from ..GUI_Elements import volume_control as vm
+from ..GUI_Elements import window_control as wc
+import GUI.shared_functions as shared_functions
 
 system = platform.system()
 

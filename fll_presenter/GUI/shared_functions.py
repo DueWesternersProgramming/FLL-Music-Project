@@ -4,9 +4,9 @@ import platform
 import sys
 import time
 import customtkinter as ct
-import GUI_Elements.volume_control as vm
-import GUI_Elements.window_control as wc
-import GUI_Elements.timer as Timer
+from .GUI_Elements import volume_control as vm
+from .GUI_Elements import window_control as wc
+from .GUI_Elements import timer as Timer
 
 """File to hold the shared functions between timer and controller windows"""
 system = platform.system()
