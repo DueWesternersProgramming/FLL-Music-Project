@@ -6,7 +6,7 @@ import time
 import customtkinter as ct
 from ..GUI_Elements import volume_control as vm
 from ..GUI_Elements import window_control as wc
-from ..GUI_Elements import timer as Timer
+from ..GUI_Elements import timer as Timer_Element
 import GUI.shared_functions as shared_functions
 
 system = platform.system()
@@ -29,4 +29,4 @@ def new_timer_window():
 
 def set_timer_size(scale):
     """Function to update the size of the Timer widget"""
-    Timer.update_size(timer,scale)
+    Timer_Element.update_size(timer,scale)

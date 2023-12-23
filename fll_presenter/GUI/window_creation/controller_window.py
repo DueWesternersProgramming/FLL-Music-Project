@@ -6,7 +6,7 @@ import time
 import customtkinter as ct
 from ..GUI_Elements import volume_control as vm
 from ..GUI_Elements import window_control as wc
-from ..GUI_Elements import timer as Timer
+from ..GUI_Elements import timer as Timer_Element
 import GUI.shared_functions as shared_functions
 
 
@@ -14,8 +14,6 @@ system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
-global controller_var
-controller_var = None
 
 def new_controller_window(orientation,music_options=True,timer_options=True,timer=None):
     """Function creates the main gui and buttons as well as starting the event loop"""
@@ -40,7 +38,7 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
     if (timer_options):
         def set_timer_size(scale):
             """Function to update the size of the Timer widget"""
-            Timer.update_size(timer,scale)
+            Timer_Element.update_size(timer,scale)
 
         toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
         command=lambda:shared_functions.toggle_full_screen(timer_window), width=110, height= 3, font=("Serif", 20))
@@ -52,10 +50,10 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         update_color_button.pack(side=second_pack_var, fill=fill_var)
 
         start_timer_button = ct.CTkButton(controller, text="Start Timer",
-        command=lambda: Timer.start_timer(timer), width=110, height= 3, font=("Serif", 20))
+        command=lambda: Timer_Element.start_timer(timer), width=110, height= 3, font=("Serif", 20))
 
         stop_timer_button = ct.CTkButton(controller, text="Stop Timer",
-        command=lambda: Timer.stop_timer(timer), width=110, height=3, font=("Serif", 20))
+        command=lambda: Timer_Element.stop_timer(timer), width=110, height=3, font=("Serif", 20))
 
         timer_toggle_button = ct.CTkButton(controller, text="Hide/Show Timer",
         command=lambda: wc.toggle_window("Timer Window"), width=110, height=3, font=("Serif", 20))
@@ -100,6 +98,3 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
 
     controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
     controller.mainloop()
-
-def get_controller_var():
-    return controller_var
