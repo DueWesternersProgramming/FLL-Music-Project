@@ -1,11 +1,12 @@
+"""The module that creates and returns a controller window"""
 import tkinter
 import tkinter.colorchooser
 import platform
 import customtkinter as ct
+from GUI import shared_functions
 from ..GUI_Elements import volume_control as vm
 from ..GUI_Elements import window_control as wc
 from ..GUI_Elements import timer as Timer_Element
-import GUI.shared_functions as shared_functions
 
 system = platform.system()
 LASTCLICKMS = 0
@@ -19,7 +20,7 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         second_pack_var = "right"
         fill_var = "y"
         controller_size = "1325x250"
-        
+
     elif orientation == 1:
         pack_var = "top"
         second_pack_var = "bottom"
@@ -31,17 +32,19 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
     controller.geometry(controller_size)
     controller.configure(background='#242424')
 
-    if (timer_options):
+    if timer_options:
         def set_timer_size(scale):
             """Function to update the size of the Timer widget"""
             Timer_Element.update_size(timer,scale)
 
         toggle_full_screen_button = ct.CTkButton(controller, text="Toggle\nFull\nScreen",
-        command=lambda:shared_functions.toggle_full_screen(timer_window), width=110, height= 3, font=("Serif", 20))
+        command=lambda:shared_functions.toggle_full_screen(timer_window),
+        width=110, height= 3, font=("Serif", 20))
         toggle_full_screen_button.pack(side=second_pack_var, fill=fill_var)
 
         update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
-        command=lambda: timer_window.configure(background=str(shared_functions.open_color_menu(timer_window))),
+        command=lambda: timer_window.configure(background=
+        str(shared_functions.open_color_menu(timer_window))),
         width=110, height= 3, font=("Serif", 20))
         update_color_button.pack(side=second_pack_var, fill=fill_var)
 
@@ -64,7 +67,7 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         timer_size.pack(side=("left"), fill="y")
 
     #If music options is enabled and should show:
-    if (music_options):
+    if music_options:
         volume_up_button = ct.CTkButton(controller, text="Volume Up",
         command=lambda: shared_functions.call_volume_control(True, controller, system),
         width=110, height=3, font=("Serif", 20))
@@ -86,7 +89,8 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         min_volume_slider.pack(side=("left"), fill="y")
         max_volume_slider.pack(side=("left"), fill="y")
         if system == "Windows":
-            application_selector = ct.CTkOptionMenu(controller, values=wc.get_window_executable_names(),
+            application_selector = ct.CTkOptionMenu(controller,
+            values=wc.get_window_executable_names(),
             command=shared_functions.set_audio_application)
             application_selector.pack(side="left")
             application_selector.after(10000,

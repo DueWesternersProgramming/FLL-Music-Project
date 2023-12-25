@@ -1,3 +1,4 @@
+"""File to hold the shared functions between timer and controller windows"""
 import tkinter
 import tkinter.colorchooser
 import platform
@@ -6,7 +7,6 @@ import time
 from .GUI_Elements import volume_control as vm
 from .GUI_Elements import window_control as wc
 
-"""File to hold the shared functions between timer and controller windows"""
 system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
@@ -18,14 +18,12 @@ def schedule_dropdown_update(window, selector):
     window.update()
     selector.after(10000, lambda: schedule_dropdown_update(window, selector))
 
-
 def call_volume_control(option, controller, os):
     """Function to call volume control with a 1 second cooldown"""
     global LASTCLICKMS
     if time.time() > (LASTCLICKMS + CLICKCOOLDOWN):
         vm.volume_control(option, controller, os)
         LASTCLICKMS = time.time()
-
 
 def set_volume_minimum(min_volume):
     """Function to send the new volume minimum"""
@@ -66,7 +64,6 @@ def toggle_full_screen(window):
     elif SCREENTOGGLE is True:
         exit_full_screen(window)
         SCREENTOGGLE = False
-
 
 def full_screen(window):
     """Function that fullscreens the supplied window"""
