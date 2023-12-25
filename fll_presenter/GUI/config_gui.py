@@ -1,6 +1,7 @@
 """The module that creates and runs a configuration gui"""
 import platform
 import customtkinter as ct
+from . import shared_functions
 from .GUI_configurations import main_gui
 from .GUI_configurations import music_only_gui as music_gui
 from .GUI_configurations import timer_only_gui as timer_gui
