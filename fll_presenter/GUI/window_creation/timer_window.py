@@ -1,13 +1,8 @@
 import tkinter
 import tkinter.colorchooser
 import platform
-import sys
-import time
 import customtkinter as ct
-from ..GUI_Elements import volume_control as vm
-from ..GUI_Elements import window_control as wc
 from ..GUI_Elements import timer as Timer_Element
-import GUI.shared_functions as shared_functions
 
 system = platform.system()
 LASTCLICKMS = 0
@@ -17,6 +12,7 @@ global timer
 
 def new_timer_window():
     """Function creates the main gui and buttons as well as starting the event loop"""
+    global timer
     timer_window = tkinter.Tk()
     timer_window.geometry("400x350")
     timer_window.title("Timer Window")
@@ -25,7 +21,7 @@ def new_timer_window():
     timer = ct.CTkLabel(timer_window,text="2:30",text_color="#dce4ee")
     timer.configure(font=("Helvetica", 200))
     timer.place(relx=.5, rely=.5,anchor="c")
-    timer_window.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(timer_window,controller))
+    return timer_window
 
 def set_timer_size(scale):
     """Function to update the size of the Timer widget"""

@@ -1,21 +1,18 @@
 import tkinter
 import tkinter.colorchooser
 import platform
-import sys
-import time
 import customtkinter as ct
 from ..GUI_Elements import volume_control as vm
 from ..GUI_Elements import window_control as wc
 from ..GUI_Elements import timer as Timer_Element
 import GUI.shared_functions as shared_functions
 
-
 system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
 
-def new_controller_window(orientation,music_options=True,timer_options=True,timer=None):
+def new_controller_window(orientation,music_options=True,timer_options=True,timer=None,timer_window=None):
     """Function creates the main gui and buttons as well as starting the event loop"""
     if orientation == 0:
         pack_var = "left"
@@ -28,7 +25,6 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         second_pack_var = "bottom"
         fill_var = "x"
         controller_size = "250x600"
-
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
@@ -96,5 +92,4 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
             application_selector.after(10000,
             lambda:shared_functions.schedule_dropdown_update(controller, application_selector))
 
-    controller.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(controller,timer_window))
-    controller.mainloop()
+    return controller

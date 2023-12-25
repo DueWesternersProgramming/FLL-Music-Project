@@ -1,17 +1,20 @@
 """The module that creates and runs a configuration gui"""
 import platform
+import sys
 import customtkinter as ct
-from .GUI_configurations import main_gui
-from .GUI_configurations import music_only_gui as music_gui
-from .GUI_configurations import timer_only_gui as timer_gui
+from . import shared_functions
+from .window_creation import controller_window
+from .window_creation import timer_window
 
 system = platform.system()
 CONFIGWINDOW = None
+CONTROLLERWINDOW = None
+TIMERWINDOW = None
 
 def run_gui():
     """Function creates the config gui and buttons as well as starting the event loop"""
 
-    global CONFIGWINDOW
+    global CONFIGWINDOW, CONTROLLERWINDOW, TIMERWINDOW
     CONFIGWINDOW = ct.CTk()
     CONFIGWINDOW.wm_geometry("400x150")
     CONFIGWINDOW.wm_title("FLL Presenter")
@@ -19,18 +22,29 @@ def run_gui():
 
     def open_full_gui(window):
         """Function to open the full gui"""
+        global CONTROLLERWINDOW, TIMERWINDOW
         window.destroy()
-        main_gui.run_gui(switch.get())
+        TIMERWINDOW = timer_window.new_timer_window()
+        CONTROLLERWINDOW = controller_window.new_controller_window(switch.get(), timer_options=True, music_options=True, timer=timer_window.timer, timer_window=TIMERWINDOW)
+        TIMERWINDOW.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(TIMERWINDOW,CONTROLLERWINDOW))
+        CONTROLLERWINDOW.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(CONTROLLERWINDOW,TIMERWINDOW))
+
 
     def open_music_gui(window):
         """Function to open the music gui"""
+        global CONTROLLERWINDOW
         window.destroy()
-        music_gui.run_gui(switch.get())
+        CONTROLLERWINDOW = controller_window.new_controller_window(switch.get(), timer_options=False, music_options=True)
+        CONTROLLERWINDOW.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(CONTROLLERWINDOW,TIMERWINDOW))
 
     def open_timer_gui(window):
         """Function to open the timer gui"""
+        global CONTROLLERWINDOW, TIMERWINDOW
         window.destroy()
-        timer_gui.run_gui(switch.get())
+        TIMERWINDOW = timer_window.new_timer_window()
+        CONTROLLERWINDOW = controller_window.new_controller_window(switch.get(), music_options=False, timer_options=True, timer=timer_window.timer, timer_window=TIMERWINDOW)
+        TIMERWINDOW.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(TIMERWINDOW,CONTROLLERWINDOW))
+        CONTROLLERWINDOW.protocol("WM_DELETE_WINDOW", lambda:shared_functions.kill_windows(CONTROLLERWINDOW,TIMERWINDOW))
 
     full_gui = ct.CTkButton(CONFIGWINDOW,text="Full Options",
     command=lambda win = CONFIGWINDOW:open_full_gui(win), font=("Serif", 30))
@@ -47,6 +61,5 @@ def run_gui():
     switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
     switch.pack(side="top")
 
-    CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
-    lambda window=CONFIGWINDOW: main_gui.kill_windows(window))
+    CONFIGWINDOW.protocol("WM_DELETE_WINDOW", lambda: sys.exit())
     CONFIGWINDOW.mainloop()

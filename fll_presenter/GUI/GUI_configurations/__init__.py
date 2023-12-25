@@ -1,1 +1,0 @@
-"""Creates a indicator to treat as a package. We can add code here later if needed."""
