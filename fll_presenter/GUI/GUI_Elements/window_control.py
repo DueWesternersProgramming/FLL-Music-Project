@@ -12,7 +12,7 @@ def define_window(window):
     global WINDOW
     try:
         WINDOW = pywinctl.getWindowsWithTitle(window)[0]
-    except Exception:
+    except IndexError:
         print(window + ": Window currently hidden or unavailable")
 
 def toggle_window(my_window):
@@ -21,14 +21,5 @@ def toggle_window(my_window):
     define_window(my_window)
     if WINDOW.isVisible:
         WINDOW.hide()
-    else:
-        WINDOW.show()
-
-def show_window(window):
-    """Function to show the saved window"""
-    global WINDOW
-    define_window(window)
-    if WINDOW.isVisible:
-        pass
     else:
         WINDOW.show()

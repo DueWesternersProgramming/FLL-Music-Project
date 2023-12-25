@@ -15,7 +15,7 @@ def run_gui():
     """Function creates the config gui and buttons as well as starting the event loop"""
     global CONFIGWINDOW, CONTROLLERWINDOW, TIMERWINDOW
     CONFIGWINDOW = ct.CTk()
-    CONFIGWINDOW.wm_geometry("400x150")
+    CONFIGWINDOW.wm_geometry("400x175")
     CONFIGWINDOW.wm_title("FLL Presenter")
     ct.set_appearance_mode("dark")
 
