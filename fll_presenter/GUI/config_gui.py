@@ -7,13 +7,13 @@ from .GUI_configurations import timer_only_gui as timer_gui
 
 system = platform.system()
 CONFIGWINDOW = None
-
+global switch
 def run_gui():
     """Function creates the config gui and buttons as well as starting the event loop"""
 
     global CONFIGWINDOW
     CONFIGWINDOW = ct.CTk()
-    CONFIGWINDOW.wm_geometry("400x150")
+    CONFIGWINDOW.wm_geometry("400x175")
     CONFIGWINDOW.wm_title("FLL Presenter")
     ct.set_appearance_mode("dark")
 
@@ -46,7 +46,6 @@ def run_gui():
 
     switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
     switch.pack(side="top")
-
     CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
-    lambda window=CONFIGWINDOW: main_gui.kill_windows(window))
+    lambda window=CONFIGWINDOW: shared_functions.kill_windows(window))
     CONFIGWINDOW.mainloop()
