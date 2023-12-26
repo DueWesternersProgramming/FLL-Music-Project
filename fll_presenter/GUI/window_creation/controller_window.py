@@ -9,11 +9,9 @@ from ..GUI_Elements import window_control as wc
 from ..GUI_Elements import timer as Timer_Element
 
 system = platform.system()
-LASTCLICKMS = 0
-CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
-SCREENTOGGLE = False
 
-def new_controller_window(orientation,music_options=True,timer_options=True,timer=None,timer_window=None):
+def new_controller_window(orientation,music_options=True,timer_options=True,
+                          timer=None,timer_window=None):
     """Function creates the main gui and buttons as well as starting the event loop"""
     if orientation == 0:
         pack_var = "left"
@@ -79,7 +77,6 @@ def new_controller_window(orientation,music_options=True,timer_options=True,time
         timer_size.set(200)
         timer_size.after(50, lambda: timer_size.pack(side=pack_var, fill="y"))
 
-    #If music options is enabled and should show:
     if music_options:
         volume_up_button = ct.CTkButton(controller, text="Volume Up",
         command=lambda: shared_functions.call_volume_control(True, controller, system),

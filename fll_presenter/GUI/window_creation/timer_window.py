@@ -6,9 +6,6 @@ import customtkinter as ct
 from ..GUI_Elements import timer as Timer_Element
 
 system = platform.system()
-LASTCLICKMS = 0
-CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
-SCREENTOGGLE = False
 TIMER = None
 
 def new_timer_window():
