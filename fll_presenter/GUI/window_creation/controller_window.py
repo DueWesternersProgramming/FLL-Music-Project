@@ -17,31 +17,35 @@ def new_controller_window(orientation,music_options=True,timer_options=True,
         pack_var = "left"
         second_pack_var = "right"
         fill_var = "y"
-        resizable = [False, True]
         if music_options and not timer_options:
             controller_size = "525x250"
+            max_size = [525,250]
         elif timer_options and not music_options:
             controller_size = "785x250"
+            max_size= [785,250]
         else:
             controller_size = "1315x250"
+            max_size = [1315,250]
 
     elif orientation == 1:
         pack_var = "top"
         second_pack_var = "bottom"
         fill_var = "x"
-        resizable = [False, False]
         if music_options and not timer_options:
             controller_size = "250x300"
+            max_size = [250,300]
         elif timer_options and not music_options:
             controller_size = "250x500"
+            max_size = [250,500]
         else:
             controller_size = "250x600"
+            max_size = [250,600]
 
     controller = tkinter.Tk()
     controller.title("Controller Window")
     controller.geometry(controller_size)
     controller.configure(background='#242424')
-    controller.resizable(resizable[0], resizable[1])
+    controller.maxsize(max_size[0], max_size[1])
 
     if timer_options:
         def set_timer_size(scale):
@@ -56,7 +60,7 @@ def new_controller_window(orientation,music_options=True,timer_options=True,
         update_color_button = ct.CTkButton(controller, text="Change\nTimer\nBackground",
         command=lambda: timer_window.configure(background=
         str(shared_functions.open_color_menu(timer_window))),
-        width=110, height= 3, font=("Serif", 20))
+        width=115, height= 3, font=("Serif", 20))
         update_color_button.pack(side=second_pack_var, fill=fill_var)
 
         start_timer_button = ct.CTkButton(controller, text="Start Timer",
