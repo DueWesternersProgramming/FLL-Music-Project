@@ -1,5 +1,5 @@
 """Main module that starts everything"""
-import config_gui
+from GUI import config_gui
 
 def main():
     """Function to start FLL Presenter"""
