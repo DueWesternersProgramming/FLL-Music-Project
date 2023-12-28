@@ -16,7 +16,6 @@ def new_controller_window(orientation,music_options=True,timer_options=True,
     if orientation == 0:
         pack_var = "left"
         second_pack_var = "right"
-        #fill_var = "y"
         if music_options and not timer_options:
             controller_size = "525x250"
         elif timer_options and not music_options:
@@ -27,7 +26,6 @@ def new_controller_window(orientation,music_options=True,timer_options=True,
     elif orientation == 1:
         pack_var = "top"
         second_pack_var = "bottom"
-        #fill_var = "x"
         if music_options and not timer_options:
             controller_size = "250x300"
         elif timer_options and not music_options:

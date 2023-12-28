@@ -18,7 +18,7 @@ all if your controllers to start the timer and fade the volume. Full screen
 for the controller is not required due to scaling, but scale up the display/timer screen
 to the size of your screen.
 
-If you want to build a fully-packaged executable file, run the *new command that's not ready yet ;)*.
+If you want to build a fully-packaged executable file, ensure you're in the base directory with the requirements.txt file and run `shiv --site-packages fll_presenter -e main:main -o fll_presenter.pyzw -r requirements.txt`.
 
 If any issues arise, please open an issue [here](https://github.com/DueWesternersProgramming/FLL-Music-Project/issues).
 

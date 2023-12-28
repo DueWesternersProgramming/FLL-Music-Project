@@ -1,16 +1,18 @@
 """File to hold the shared functions between timer and controller windows"""
 import tkinter
 import tkinter.colorchooser
-import platform
 import sys
 import time
 from .GUI_Elements import volume_control as vm
 from .GUI_Elements import window_control as wc
+from .window_creation import error_window as er
 
-system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
+
+def report_error(error, exception):
+    er.new_error_window(error, exception)
 
 def schedule_dropdown_update(window, selector):
     """Function to update the selector applications"""

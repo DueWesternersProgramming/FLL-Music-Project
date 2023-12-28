@@ -1,15 +1,13 @@
 """The module that creates and returns a timer window"""
 import tkinter
 import tkinter.colorchooser
-import platform
 import customtkinter as ct
 from ..GUI_Elements import timer as Timer_Element
 
-system = platform.system()
 TIMER = None
 
 def new_timer_window():
-    """Function creates the main gui and buttons as well as starting the event loop"""
+    """Function creates the timer window"""
     global TIMER
     timer_window = tkinter.Tk()
     timer_window.geometry("400x350")
