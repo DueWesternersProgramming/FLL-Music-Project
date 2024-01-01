@@ -29,6 +29,8 @@ def toggle_window(my_window):
             WINDOW.hide()
         else:
             WINDOW.show()
+        return True
     except AttributeError as e:
         sf.report_error("Error in window_control.py toggle_window()\n"
                         + my_window, e)
+        return False

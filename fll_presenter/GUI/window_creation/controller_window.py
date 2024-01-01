@@ -61,7 +61,9 @@ def new_controller_window(orientation,music_options=True,timer_options=True,
         command=lambda: Timer_Element.stop_timer(timer), width=110, height=3, font=("Serif", 20))
 
         timer_toggle_button = ct.CTkButton(controller, text="Hide/Show Timer",
-        command=lambda: wc.toggle_window("Timer Window"), width=110, height=3, font=("Serif", 20))
+        width=110, height=3, font=("Serif", 20))
+        timer_toggle_button._command = lambda: shared_functions.toggle_window("Timer Window",
+        timer_toggle_button)
 
         start_timer_button.pack(side=pack_var, fill="both", expand=True)
         stop_timer_button.pack(side=pack_var, fill="both", expand=True)

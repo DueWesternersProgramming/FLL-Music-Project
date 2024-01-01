@@ -38,7 +38,7 @@ def set_volume_maximum(max_volume):
 
 def set_audio_application(application):
     """Function to send the new audio application"""
-    vm.set_volume_application(application)
+    vm.set_volume_application(application) 
 
 def kill_windows(controller, timer_window = None, kill_program = True):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
@@ -57,6 +57,10 @@ def open_color_menu(timer_window):
     if color is None:
         return timer_window['background']
     return color
+
+def toggle_window(window, button):
+    if not wc.toggle_window(window):
+        button.configure(state="disabled")
 
 def toggle_full_screen(window):
     """Function that uses a boolean to toggle full screen on and off for the argument window"""
