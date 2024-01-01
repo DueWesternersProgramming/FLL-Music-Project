@@ -7,8 +7,8 @@ try:
         from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
     elif system == 'Linux':
         from alsaaudio import Mixer
-except Exception as e:
-    sf.report_error("Error in volume_control.py imports")
+except ImportError as e:
+    sf.report_error("Error in volume_control.py imports", e)
 
 INCREMENT = 0.02              # Increment Per Update Tick
 UPDATETICK = 100              # Update Tick Time In ms
@@ -39,9 +39,9 @@ def set_volume_control(new_low_volume, new_high_volume):
         if new_low_volume < new_high_volume:
             LOWVOLUME = new_low_volume/100
             HIGHVOLUME = new_high_volume/100
-    except Exception as e:
+    except ValueError as error:
         sf.report_error("Error in volume_control.py set_volume_control()\n"
-                                + new_low_volume + ", " + new_high_volume, e)
+                                + new_low_volume + ", " + new_high_volume, error)
 
 def init_windows_audio():
     """Function to initialize the Windows audio engine"""
@@ -52,16 +52,16 @@ def init_windows_audio():
             if session.Process and session.Process.name() == APPLICATION:
                 VOLUME = session._ctl.QueryInterface(ISimpleAudioVolume)
                 break
-    except Exception as e:
-        sf.report_error("Error in volume_control.py init_windows_audio()", e)
+    except Exception as error:
+        sf.report_error("Error in volume_control.py init_windows_audio()", error)
 
 def init_linux_audio():
     """Function to initialize the Linux audio engine"""
     try:
         global VOLUME
         VOLUME = Mixer()
-    except Exception as e:
-        sf.report_error("Error in volume_control.py init_linux_audio()", e)
+    except Exception as error:
+        sf.report_error("Error in volume_control.py init_linux_audio()", error)
 
 if system == 'Windows':
     init_windows_audio()
@@ -75,13 +75,11 @@ def run_window_update(control, window, os):
 def get_new_volume(control, previous_volume, modified_low, modified_high, modified_increment):
     """Function to return the new volume for the volume_control function"""
     if control is True:
-        #print("volume up")
         if (previous_volume + modified_increment) > modified_high:
             previous_volume = modified_high
         else:
             previous_volume = previous_volume + modified_increment
     else:
-        #print("Volume down")
         if (previous_volume - modified_increment) < modified_low:
             previous_volume = modified_low
         else:
@@ -115,6 +113,6 @@ def volume_control(control, window, os):
                     VOLUME.setvolume(int(get_new_volume(control, previous_volume, (LOWVOLUME*100),
                                                     (HIGHVOLUME*100), (INCREMENT*100))))
                     run_window_update(control, window, os)
-    except Exception as e:
+    except ValueError as error:
         sf.report_error("Error in volume_control.py volume_control()\n"
-                        + control + ", " + window + ", " + os, e)
+                        + control + ", " + window + ", " + os, error)

@@ -29,6 +29,6 @@ def toggle_window(my_window):
             WINDOW.hide()
         else:
             WINDOW.show()
-    except Exception as e:
+    except IndexError as e:
         sf.report_error("Error in window_control.py toggle_window()\n"
                         + my_window, e)

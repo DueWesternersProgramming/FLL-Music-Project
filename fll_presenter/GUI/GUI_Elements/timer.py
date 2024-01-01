@@ -1,5 +1,6 @@
 """Module to control the timer being displayed in the gui"""
 import time
+from tkinter import TclError
 from .. import shared_functions as sf
 
 MASTERMIN = 2
@@ -11,13 +12,12 @@ RESETINTERVAL = 5000    # ms
 INTERRUPT = False
 RUNNING = False
 
-def update_size(t,size):
+def update_size(t, size):
     """Function actually changes the size of the text"""
     try:
         t.configure(font=("Serif", size))
-    except Exception as e:
-        sf.report_error
-        ("Error in timer.py update_size()\n" + t + ", " + size + "\n", e)
+    except TclError as e:
+        sf.report_error("Error in timer.py update_size()\n" + str(t) + ", " + str(size) + "\n", e)
 
 def current_time_millis():
     """Function returns the current time in ms"""
@@ -36,7 +36,7 @@ def start_timer(timer):
         timer.configure(text=str(MASTERMIN) + ":" + str(MASTERSEC))
         milli_goal = ((MASTERMIN*60+MASTERSEC)*1000)+current_time_millis()+1000
         timer.after(TICKINTERVAL, lambda: tick(timer, milli_goal))
-    except Exception as e:
+    except TclError as e:
         sf.report_error("Error in timer.py start_timer()\n" + timer, e)
 
 def stop_timer(timer):
@@ -45,7 +45,7 @@ def stop_timer(timer):
         global INTERRUPT
         INTERRUPT = True
         timer.configure(text=str(MASTERMIN) + ":" + str(MASTERSEC))
-    except Exception as e:
+    except TclError as e:
         sf.report_error("Error in timer.py stop_timer()\n" + timer, e)
 
 def tick(timer, goal):
@@ -73,6 +73,6 @@ def tick(timer, goal):
             RUNNING = False
         else:
             timer.after(TICKINTERVAL, lambda: tick(timer, goal))
-    except Exception as e:
+    except TclError as e:
         sf.report_error("Error in timer.py tick()\n"
-                        + timer + ", " + goal, e)
+                        + str(timer) + ", " + str(goal), e)

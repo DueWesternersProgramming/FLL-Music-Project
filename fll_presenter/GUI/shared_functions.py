@@ -12,6 +12,7 @@ CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
 
 def report_error(error, exception):
+    """Function sends the error to the error window creator"""
     er.new_error_window(error, exception)
 
 def schedule_dropdown_update(window, selector):
