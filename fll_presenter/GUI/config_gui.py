@@ -1,12 +1,9 @@
 """The module that creates and runs a configuration gui"""
-import platform
-import sys
 import customtkinter as ct
 from . import shared_functions
 from .window_creation import controller_window as controller_window_module
 from .window_creation import timer_window as timer_window_module
 
-system = platform.system()
 CONFIGWINDOW = None
 
 def run_gui():
@@ -65,5 +62,6 @@ def run_gui():
     switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
     switch.pack(side="top")
 
-    CONFIGWINDOW.protocol("WM_DELETE_WINDOW", lambda:sys.exit())
+    CONFIGWINDOW.protocol("WM_DELETE_WINDOW",
+    lambda:shared_functions.kill_windows(CONFIGWINDOW))
     CONFIGWINDOW.mainloop()

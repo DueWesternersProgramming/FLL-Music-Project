@@ -1,16 +1,19 @@
 """File to hold the shared functions between timer and controller windows"""
 import tkinter
 import tkinter.colorchooser
-import platform
 import sys
 import time
 from .GUI_Elements import volume_control as vm
 from .GUI_Elements import window_control as wc
+from .window_creation import error_window as er
 
-system = platform.system()
 LASTCLICKMS = 0
 CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
+
+def report_error(error, exception):
+    """Function sends the error to the error window creator"""
+    er.new_error_window(error, exception)
 
 def schedule_dropdown_update(window, selector):
     """Function to update the selector applications"""
@@ -35,7 +38,7 @@ def set_volume_maximum(max_volume):
 
 def set_audio_application(application):
     """Function to send the new audio application"""
-    vm.set_volume_application(application)
+    vm.set_volume_application(application) 
 
 def kill_windows(controller, timer_window = None, kill_program = True):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
@@ -54,6 +57,10 @@ def open_color_menu(timer_window):
     if color is None:
         return timer_window['background']
     return color
+
+def toggle_window(window, button):
+    if not wc.toggle_window(window):
+        button.configure(state="disabled")
 
 def toggle_full_screen(window):
     """Function that uses a boolean to toggle full screen on and off for the argument window"""

@@ -1,11 +1,16 @@
 """Module to control window hiding and name retrieval"""
 import pywinctl
+from .. import shared_functions as sf
 
 WINDOW = None
 
 def get_window_executable_names():
     """Function to return executable names for the music picker"""
-    return pywinctl.getAllAppsNames()
+    try:
+        return pywinctl.getAllAppsNames()
+    except Exception as e:
+        sf.report_error("Error in window_control.py "
+                        + "get_window_executable_names()", e)
 
 def define_window(window):
     """Function attempts to set the global WINDOW variable"""
@@ -17,9 +22,15 @@ def define_window(window):
 
 def toggle_window(my_window):
     """Function to toggle hiding the window with the entered name"""
-    global WINDOW
-    define_window(my_window)
-    if WINDOW.isVisible:
-        WINDOW.hide()
-    else:
-        WINDOW.show()
+    try:
+        global WINDOW
+        define_window(my_window)
+        if WINDOW.isVisible:
+            WINDOW.hide()
+        else:
+            WINDOW.show()
+        return True
+    except AttributeError as e:
+        sf.report_error("Error in window_control.py toggle_window()\n"
+                        + my_window, e)
+        return False
