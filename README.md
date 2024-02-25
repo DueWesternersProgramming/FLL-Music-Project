@@ -1,6 +1,8 @@
 📖 Instructions
 
-Make sure you have Python 3 installed and working.
+# If you're here to use the project, visit the [releases](https://github.com/DueWesternersProgramming/FLL-Music-Project/releases) link. If you're here to develop the project, follow the instructions below.
+
+Make sure you have Python 3 installed and working. If you're using Windows, you will want to disable the Python options in the App Executaiton Aliases in the Windows Settings.
 
 Clone the repo:
 
