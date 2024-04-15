@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.version }}
     - name: Install APT Dependencies (Linux)
@@ -33,7 +33,7 @@ jobs:
     - name: Build/Export
       run: |
         shiv --site-packages fll_presenter -e main:main -o fll_presenter.pyzw -r requirements.txt
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: FLL Presenter ${{ matrix.os }} For Python v${{ matrix.version }}
         path: |
