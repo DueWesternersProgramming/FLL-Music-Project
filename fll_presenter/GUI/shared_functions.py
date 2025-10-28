@@ -1,25 +1,29 @@
 """File to hold the shared functions between timer and controller windows"""
+
 import tkinter
 import tkinter.colorchooser
 import sys
 import time
-from .GUI_Elements import volume_control as vm
-from .GUI_Elements import window_control as wc
+from .Hardware_Control_Elements import volume_control as vm
+from .Hardware_Control_Elements import window_control as wc
 from .window_creation import error_window as er
 
 LASTCLICKMS = 0
-CLICKCOOLDOWN = 5           # Volume Control Cooldown In Seconds
+CLICKCOOLDOWN = 2  # Volume Control Cooldown In Seconds
 SCREENTOGGLE = False
+
 
 def report_error(error, exception):
     """Function sends the error to the error window creator"""
     er.new_error_window(error, exception)
+
 
 def schedule_dropdown_update(window, selector):
     """Function to update the selector applications"""
     selector.configure(values=wc.get_window_executable_names())
     window.update()
     selector.after(10000, lambda: schedule_dropdown_update(window, selector))
+
 
 def call_volume_control(option, controller, os):
     """Function to call volume control with a 1 second cooldown"""
@@ -28,19 +32,23 @@ def call_volume_control(option, controller, os):
         vm.volume_control(option, controller, os)
         LASTCLICKMS = time.time()
 
+
 def set_volume_minimum(min_volume):
     """Function to send the new volume minimum"""
     vm.set_volume_control(min_volume, vm.get_volume_control()[1])
+
 
 def set_volume_maximum(max_volume):
     """Function to send the new volume maximum"""
     vm.set_volume_control(vm.get_volume_control()[0], max_volume)
 
+
 def set_audio_application(application):
     """Function to send the new audio application"""
-    vm.set_volume_application(application) 
+    vm.set_volume_application(application)
 
-def kill_windows(controller, timer_window = None, kill_program = True):
+
+def kill_windows(controller, timer_window=None, kill_program=True):
     """Function to kill the tkinter fll_presenter windows and exit the program"""
     print("KILLING PROGRAM/WINDOW(S)")
     controller.destroy()
@@ -49,18 +57,22 @@ def kill_windows(controller, timer_window = None, kill_program = True):
     if kill_program is True:
         sys.exit()
 
+
 def open_color_menu(timer_window):
     """Function to open a new color selector window for the color of the timer window"""
     color = tkinter.colorchooser.askcolor(
-    title="Select a new color for the background of the display",
-                        initialcolor=timer_window['background'])[1]
+        title="Select a new color for the background of the display",
+        initialcolor=timer_window["background"],
+    )[1]
     if color is None:
-        return timer_window['background']
+        return timer_window["background"]
     return color
+
 
 def toggle_window(window, button):
     if not wc.toggle_window(window):
         button.configure(state="disabled")
+
 
 def toggle_full_screen(window):
     """Function that uses a boolean to toggle full screen on and off for the argument window"""
@@ -72,9 +84,11 @@ def toggle_full_screen(window):
         exit_full_screen(window)
         SCREENTOGGLE = False
 
+
 def full_screen(window):
     """Function that fullscreens the supplied window"""
     window.attributes("-fullscreen", True)
+
 
 def exit_full_screen(window):
     """Function that exits fullscreen on the supplied window"""
