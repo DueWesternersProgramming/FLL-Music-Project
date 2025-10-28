@@ -4,6 +4,7 @@ import customtkinter as ct
 from . import shared_functions
 from .window_creation import controller_window as controller_window_module
 from .window_creation import timer_window as timer_window_module
+from .Hardware_Control_Elements import camera_stream as cs
 
 CONFIGWINDOW = None
 
@@ -19,9 +20,13 @@ def run_gui():
     def open_full_gui(window):
         """Function to open the full gui"""
         window.destroy()
-        timer_window = timer_window_module.new_timer_window(has_camera_stream=True)
+
+        timer_window = timer_window_module.new_timer_window(
+            has_camera_stream=camera_streams_switch.get(),
+            cams_to_use=cs.get_avalible_cameras(),
+        )
         controller_window = controller_window_module.new_controller_window(
-            switch.get(),
+            vertical_arangement_switch.get(),
             timer_options=True,
             music_options=True,
             timer=timer_window_module.TIMER,
@@ -40,7 +45,7 @@ def run_gui():
         """Function to open the music gui"""
         window.destroy()
         controller_window = controller_window_module.new_controller_window(
-            switch.get(), timer_options=False, music_options=True
+            vertical_arangement_switch.get(), timer_options=False, music_options=True
         )
         controller_window.protocol(
             "WM_DELETE_WINDOW", lambda: shared_functions.kill_windows(controller_window)
@@ -49,9 +54,12 @@ def run_gui():
     def open_timer_gui(window):
         """Function to open the timer gui"""
         window.destroy()
-        timer_window = timer_window_module.new_timer_window()
+        timer_window = timer_window_module.new_timer_window(
+            has_camera_stream=camera_streams_switch.get(),
+            cams_to_use=cs.get_avalible_cameras(),
+        )
         controller_window = controller_window_module.new_controller_window(
-            switch.get(),
+            vertical_arangement_switch.get(),
             music_options=False,
             timer_options=True,
             timer=timer_window_module.TIMER,
@@ -90,8 +98,11 @@ def run_gui():
     )
     music_only_gui.pack(side="top", fill="x")
 
-    switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
-    switch.pack(side="top")
+    vertical_arangement_switch = ct.CTkSwitch(CONFIGWINDOW, text="Vertical Arangement")
+    vertical_arangement_switch.pack(side="top")
+
+    camera_streams_switch = ct.CTkSwitch(CONFIGWINDOW, text="Camera Streams")
+    camera_streams_switch.pack(side="top")
 
     # todo: add checkbox for cameras to use
 

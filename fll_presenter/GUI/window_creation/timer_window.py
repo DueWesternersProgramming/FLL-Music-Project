@@ -13,7 +13,7 @@ camera_stream_widgets = []
 cams = {}
 
 
-def new_timer_window(has_camera_stream=False):
+def new_timer_window(has_camera_stream=False, cams_to_use={}):
     """Function creates the timer window"""
     global TIMER
     global camera_stream_widgets
@@ -28,7 +28,8 @@ def new_timer_window(has_camera_stream=False):
     TIMER.place(relx=0.5, rely=0.5, anchor="c")
 
     if has_camera_stream:
-        cams = cs.get_avalible_cameras()
+        # cams = cs.get_avalible_cameras()
+        cams = cams_to_use
 
         print("Available cameras:", cams)
 
