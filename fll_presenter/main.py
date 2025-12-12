@@ -10,6 +10,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-# x = {50: 3, 51: 4}
 
-# print(list(x.keys()))

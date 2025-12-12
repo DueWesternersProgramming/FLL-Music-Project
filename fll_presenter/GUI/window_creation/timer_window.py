@@ -25,7 +25,9 @@ def new_timer_window(has_camera_stream=False, cams_to_use={}):
 
     TIMER = ct.CTkLabel(timer_window, text="2:30", text_color="#dce4ee")
     TIMER.configure(font=("Helvetica", 200))
-    TIMER.place(relx=0.5, rely=0.5, anchor="c")
+    TIMER.place(x=400, y=400)
+
+    DraggableWidget(TIMER, 8)
 
     if has_camera_stream:
         # cams = cs.get_avalible_cameras()
@@ -63,4 +65,4 @@ def update_video_stream():
 
 def set_timer_size(scale):
     """Function to update the size of the Timer widget"""
-    Timer_Element.update_size(TIMER, scale)
+    Timer_Element.update_size(TIMER.widget, scale)

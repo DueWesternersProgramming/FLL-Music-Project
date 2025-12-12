@@ -24,12 +24,21 @@ class DraggableWidget:
         near_bottom = abs(y - h) <= border
 
         # Only resize from bottom-right corner (for simplicity)
-        if near_right and near_bottom:
-            self.widget.config(cursor="bottom_right_corner")
-            self.in_resize_zone = True
-        else:
-            self.widget.config(cursor="")
-            self.in_resize_zone = False
+
+        try:
+            if near_right and near_bottom:
+                self.widget.config(cursor="bottom_right_corner")
+                self.in_resize_zone = True
+            else:
+                self.widget.config(cursor="")
+                self.in_resize_zone = False
+        except:
+            if near_right and near_bottom:
+                self.widget.configure(cursor="bottom_right_corner")
+                self.in_resize_zone = True
+            else:
+                self.widget.configure(cursor="")
+                self.in_resize_zone = False
 
     def on_press(self, event):
         """Start dragging or resizing"""
