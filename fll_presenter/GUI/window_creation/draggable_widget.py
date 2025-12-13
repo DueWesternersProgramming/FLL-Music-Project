@@ -62,6 +62,8 @@ class DraggableWidget:
             dy = event.y_root - self.start_y
             new_w = max(50, self.start_w + dx)
             new_h = max(50, self.start_h + dy)
+            self.current_width = new_w
+            self.current_height = new_h
             self.widget.place(width=new_w, height=new_h)
         elif self.dragging:
             x = self.widget.winfo_x() - self.start_offset_x + event.x
