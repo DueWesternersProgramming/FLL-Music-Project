@@ -1,26 +1,30 @@
 """Module to give volume control for the application"""
+
 import platform
 from .. import shared_functions as sf
+
 system = platform.system()
 try:
-    if system == 'Windows':
+    if system == "Windows":
         from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
-    elif system == 'Linux':
+    elif system == "Linux":
         from alsaaudio import Mixer
 except ImportError as e:
     sf.report_error("Error in volume_control.py imports", e)
 
-INCREMENT = 0.02              # Increment Per Update Tick
-UPDATETICK = 100              # Update Tick Time In ms
-LOWVOLUME = 0.5               # Default Minimum Goal Volume For Specific Application
-HIGHVOLUME = 0.7              # Dfault Maximum Goal Volume For Specific Application
-APPLICATION = "Spotify.exe"   # Specific Application To Control (Windows)
+INCREMENT = 0.02  # Increment Per Update Tick
+UPDATETICK = 100  # Update Tick Time In ms
+LOWVOLUME = 0.5  # Default Minimum Goal Volume For Specific Application
+HIGHVOLUME = 0.7  # Dfault Maximum Goal Volume For Specific Application
+APPLICATION = "Spotify.exe"  # Specific Application To Control (Windows)
 
 VOLUME = None
+
 
 def get_volume_application():
     """Function returns the current application for Windows audio control"""
     return APPLICATION
+
 
 def set_volume_application(app):
     """Function sets the current application for Windows audio control"""
@@ -28,32 +32,42 @@ def set_volume_application(app):
     APPLICATION = app
     init_windows_audio()
 
+
 def get_volume_control():
     """Function to return the current values of the volumes [low, high]"""
-    return [LOWVOLUME*100, HIGHVOLUME*100]
+    return [LOWVOLUME * 100, HIGHVOLUME * 100]
+
 
 def set_volume_control(new_low_volume, new_high_volume):
     """Function to set new volumes based on the inputs from the GUI"""
     try:
         global LOWVOLUME, HIGHVOLUME
         if new_low_volume < new_high_volume:
-            LOWVOLUME = new_low_volume/100
-            HIGHVOLUME = new_high_volume/100
+            LOWVOLUME = new_low_volume / 100
+            HIGHVOLUME = new_high_volume / 100
     except ValueError as error:
-        sf.report_error("Error in volume_control.py set_volume_control()\n"
-                                + new_low_volume + ", " + new_high_volume, error)
+        sf.report_error(
+            "Error in volume_control.py set_volume_control()\n"
+            + new_low_volume
+            + ", "
+            + new_high_volume,
+            error,
+        )
+
 
 def init_windows_audio():
     """Function to initialize the Windows audio engine"""
     try:
         global VOLUME
         sessions = AudioUtilities.GetAllSessions()
+
         for session in sessions:
             if session.Process and session.Process.name() == APPLICATION:
                 VOLUME = session._ctl.QueryInterface(ISimpleAudioVolume)
                 break
     except Exception as error:
         sf.report_error("Error in volume_control.py init_windows_audio()", error)
+
 
 def init_linux_audio():
     """Function to initialize the Linux audio engine"""
@@ -63,16 +77,21 @@ def init_linux_audio():
     except Exception as error:
         sf.report_error("Error in volume_control.py init_linux_audio()", error)
 
-if system == 'Windows':
+
+if system == "Windows":
     init_windows_audio()
-elif system == 'Linux':
+elif system == "Linux":
     init_linux_audio()
+
 
 def run_window_update(control, window, os):
     """Function to return to the main thread until the next UPDATETICK time"""
     window.after(UPDATETICK, lambda: volume_control(control, window, os))
 
-def get_new_volume(control, previous_volume, modified_low, modified_high, modified_increment):
+
+def get_new_volume(
+    control, previous_volume, modified_low, modified_high, modified_increment
+):
     """Function to return the new volume for the volume_control function"""
     if control is True:
         if (previous_volume + modified_increment) > modified_high:
@@ -86,33 +105,81 @@ def get_new_volume(control, previous_volume, modified_low, modified_high, modifi
             previous_volume = previous_volume - modified_increment
     return previous_volume
 
+
 def volume_control(control, window, os):
     """Function to run the audio volume up or down based on the os audio system"""
     try:
-        if os == 'Windows':
+        if os == "Windows":
             previous_volume = round(VOLUME.GetMasterVolume(), 2)
             if control is True:
                 if previous_volume < HIGHVOLUME:
-                    VOLUME.SetMasterVolume(round(get_new_volume(control, previous_volume, LOWVOLUME,
-                                                        HIGHVOLUME, INCREMENT), 2), None)
+                    VOLUME.SetMasterVolume(
+                        round(
+                            get_new_volume(
+                                control,
+                                previous_volume,
+                                LOWVOLUME,
+                                HIGHVOLUME,
+                                INCREMENT,
+                            ),
+                            2,
+                        ),
+                        None,
+                    )
                     run_window_update(control, window, os)
             elif control is False:
                 if previous_volume > LOWVOLUME:
-                    VOLUME.SetMasterVolume(round(get_new_volume(control, previous_volume, LOWVOLUME,
-                                                        HIGHVOLUME, INCREMENT), 2), None)
+                    VOLUME.SetMasterVolume(
+                        round(
+                            get_new_volume(
+                                control,
+                                previous_volume,
+                                LOWVOLUME,
+                                HIGHVOLUME,
+                                INCREMENT,
+                            ),
+                            2,
+                        ),
+                        None,
+                    )
                     run_window_update(control, window, os)
-        elif os == 'Linux':
+        elif os == "Linux":
             previous_volume = int(VOLUME.getvolume()[0])
             if control is True:
-                if previous_volume < (HIGHVOLUME*100):
-                    VOLUME.setvolume(int(get_new_volume(control, previous_volume, (LOWVOLUME*100),
-                                                    (HIGHVOLUME*100), (INCREMENT*100))))
+                if previous_volume < (HIGHVOLUME * 100):
+                    VOLUME.setvolume(
+                        int(
+                            get_new_volume(
+                                control,
+                                previous_volume,
+                                (LOWVOLUME * 100),
+                                (HIGHVOLUME * 100),
+                                (INCREMENT * 100),
+                            )
+                        )
+                    )
                     run_window_update(control, window, os)
             elif control is False:
-                if previous_volume > (LOWVOLUME*100):
-                    VOLUME.setvolume(int(get_new_volume(control, previous_volume, (LOWVOLUME*100),
-                                                    (HIGHVOLUME*100), (INCREMENT*100))))
+                if previous_volume > (LOWVOLUME * 100):
+                    VOLUME.setvolume(
+                        int(
+                            get_new_volume(
+                                control,
+                                previous_volume,
+                                (LOWVOLUME * 100),
+                                (HIGHVOLUME * 100),
+                                (INCREMENT * 100),
+                            )
+                        )
+                    )
                     run_window_update(control, window, os)
     except ValueError as error:
-        sf.report_error("Error in volume_control.py volume_control()\n"
-                        + control + ", " + window + ", " + os, error)
+        sf.report_error(
+            "Error in volume_control.py volume_control()\n"
+            + control
+            + ", "
+            + window
+            + ", "
+            + os,
+            error,
+        )
